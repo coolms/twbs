@@ -1,0 +1,34 @@
+{
+  "name" : "coolms/twbs",
+  "description" : "CoolMS2 Twitter Bootstrap Module",
+  "version" : "0.1.0",
+  "type" : "library",
+  "keywords" : ["coolms", "twitter", "bootstrap"],
+  "homepage" : "https://github.com/coolms/twbs",
+  "license" : "BSD-3-Clause",
+  "authors" : [ {
+    "name" : "Dmitry Popov",
+    "email" : "d.popov@altgraphic.com",
+    "role" : "Developer"
+  } ],
+  "require" : {
+    "php" : ">=5.4.0",
+    "coolms/common" : "dev-master@dev",
+    "oyejorge/less.php" : ">=v1.7.0",
+    "natxet/CssMin" : ">=3.0.2",
+    "mrclay/jsmin-php" : ">=2.3.1"
+  },
+  "require-dev" : {
+        "phpunit/phpunit" : "~4.5"
+  },
+  "autoload" : {
+        "psr-4" : { "CmsTwbs\\" : "src/" }
+  },
+  "autoload-dev" : {
+    "psr-4": { "CmsTwbsTest\\" : "tests/" }
+  },
+  "repositories" : [ {
+    "type" : "vcs",
+    "url" : "https://www.github.com/coolms/common"
+  } ]
+}

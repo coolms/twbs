@@ -1,0 +1,45 @@
+<?php
+/**
+ * CoolMS2 Twitter Bootstrap 3 module (http://www.coolms.com/)
+ * 
+ * @link      http://github.com/coolms/CmsTwb3 for the canonical source repository
+ * @copyright Copyright (c) 2006-2014 Altgraphic, ALC (http://www.altgraphic.com)
+ * @license   http://www.coolms.com/license/new-bsd New BSD License
+ * @author    Dmitry Popov <d.popov@altgraphic.com>
+ */
+
+namespace CmsTwb3;
+
+$this->headMeta()
+     ->appendHttpEquiv('X-UA-Compatible', 'IE=Edge', ['conditional' => 'IE'])
+     ->appendName('viewport', 'width=device-width, initial-scale=1.0');
+
+$this->headLink()
+     //->prependStylesheet($this->basePath('assets/cms-twb3/css/bootstrap-theme.css'))
+     //->prependStylesheet('//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css')
+     ->prependStylesheet($this->basePath('assets/cms-twb3/css/bootstrap-ext.min.css'));
+     //->prependStylesheet('//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css');
+
+$this->headScript()->prependScript(<<<EOJ
+$(function(){
+  $("input,textarea").placeholder();
+});
+EOJ
+);
+
+$this->headScript()
+     ->prependFile($this->basePath('assets/cms-jquery/plugins/jquery.placeholder.min.js'))
+     ->prependFile($this->basePath('assets/cms-twb3/js/respond.min.js'), 'text/javascript', ['conditional' => 'lt IE 9'])
+     //->prependFile('//oss.maxcdn.com/respond/1.4.2/respond.min.js', 'text/javascript', ['conditional' => 'lt IE 9'])
+     ->prependFile($this->basePath('assets/cms-twb3/js/html5shiv.min.js'), 'text/javascript', ['conditional' => 'lt IE 9'])
+     //->prependFile('//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js', 'text/javascript', ['conditional' => 'lt IE 9'])
+     ->prependFile($this->basePath('assets/cms-twb3/js/bootstrap.min.js'));
+     //->prependFile('//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js');
+
+$this->headScript()->prependScript(<<<EOJ
+$(function(){
+  $.widget.bridge("uibutton", $.ui.button);
+  $.widget.bridge("uitooltip", $.ui.tooltip);
+});
+EOJ
+);
