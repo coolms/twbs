@@ -10,20 +10,44 @@
 
 namespace CmsTwbs\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormFile as ZendFormFile;
+use Zend\Form\View\Helper\FormFile as ZendFormFile,
+    CmsCommon\View\Helper\Decorator\DecoratorProviderInterface;
 
-class FormFile extends ZendFormFile
+class FormFile extends ZendFormFile implements DecoratorProviderInterface
 {
-    use FormElementTrait;
-
-    protected $attributes = [
-        'class' => 'form-control',
+/**
+     * @var array
+     */
+    protected $decoratorSpecification = [
+        'element'   => ['type' => 'formControl'],
+        'icon'      => [
+            'placement' => false,
+            'decorators' => [
+                'inputGroupAddon',
+            ],
+        ],
+        'group'     => ['type' => 'inputGroup'],
+        'label'     => ['type' => 'controlLabel'],
+        'help'      => ['type' => 'helpBlock'],
+        'col'       => ['type' => 'formGroupCol'],
+        'row'       => ['type' => 'formGroup'],
     ];
 
     /**
-     * @var array
+     * {@inheritDoc}
      */
-    protected $labelAttributes = [
-        'class' => 'control-label sr-only',
-    ];
+    public function getDecoratorSpecification()
+    {
+        return $this->decoratorSpecification;
+    }
+
+    /**
+     * @param array $spec
+     * @return self
+     */
+    public function setDecoratorSpecification(array $spec)
+    {
+        $this->decoratorSpecification = $spec;
+        return $this;
+    }
 }

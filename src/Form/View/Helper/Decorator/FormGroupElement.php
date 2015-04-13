@@ -29,6 +29,9 @@ class FormGroupElement extends Element
         if (is_string($content) && $element && $form) {
             $elements = $this->getFieldsetElements($element, $form);
             $content  = $this->getFieldsetElementByName($content, $elements);
+            if (!$content) {
+                return '';
+            }
         }
 
         if ($content instanceof ElementInterface) {

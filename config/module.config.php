@@ -63,6 +63,14 @@ return [
             'CmsTwbs\Controller\Admin' => 'CmsTwbs\Controller\AdminController',
         ],
     ],
+    'navigation_helpers' => [
+        'aliases' => [
+            'menu' => 'CmsTwbs\View\Helper\Navigation\Menu',
+        ],
+        'invokables' => [
+            'CmsTwbs\View\Helper\Navigation\Menu' => 'CmsTwbs\View\Helper\Navigation\Menu',
+        ],
+    ],
     'router' => [
         'routes' => [
             'cms-admin' => [
