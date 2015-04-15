@@ -44,6 +44,7 @@ return array(
     'CmsTwbs\View\Helper\Col'                                => __DIR__ . '/src/View/Helper/Col.php',
     'CmsTwbs\View\Helper\Fa'                                 => __DIR__ . '/src/View/Helper/Fa.php',
     'CmsTwbs\View\Helper\Glyphicon'                          => __DIR__ . '/src/View/Helper/Glyphicon.php',
+    'CmsTwbs\View\Helper\Navigation\Menu'                    => __DIR__ . '/src/View/Helper/Navigation/Menu.php',
     'CmsTwbs\View\Helper\Panel'                              => __DIR__ . '/src/View/Helper/Panel.php',
     'CmsTwbs\View\Helper\Row'                                => __DIR__ . '/src/View/Helper/Row.php',
     'CmsTwbsTest\Framework\TestCase'                         => __DIR__ . '/tests/Framework/TestCase.php',
