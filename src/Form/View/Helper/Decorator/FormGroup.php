@@ -54,9 +54,9 @@ class FormGroup extends AbstractHtmlContainer implements OrderedDecoratorInterfa
         }
 
         $class = '';
-        if ($this->isElementHasError($element, $form)) {
+        if ($element->getOption('has_error') || $this->isElementHasError($element, $form)) {
             $class = 'has-error';
-        } else {
+        } elseif (!$element instanceof Element\Captcha) {
             $value = $element->getValue();
             if ($element instanceof Element\MonthSelect) {
                 $value = trim($value, '-');
@@ -66,8 +66,8 @@ class FormGroup extends AbstractHtmlContainer implements OrderedDecoratorInterfa
             }
         }
 
-        if ($class && $element->getOption('has_feedback')) {
-            $class .= ' has-feedback';
+        if ($element->getOption('has_feedback')) {
+            $class .= ($class ? ' ' : '') . 'has-feedback';
         }
 
         return $class;

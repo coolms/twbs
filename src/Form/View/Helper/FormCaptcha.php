@@ -21,6 +21,7 @@ class FormCaptcha extends BaseFormCaptcha implements DecoratorProviderInterface
     protected $decoratorSpecification = [
         'element'   => ['type' => 'formControl'],
         'label'     => ['type' => 'controlLabel'],
+        'help'      => ['type' => 'helpBlock'],
         'col'       => ['type' => 'formGroupCol'],
         'row'       => ['type' => 'formGroup'],
     ];

@@ -43,7 +43,18 @@ class FormGroupElement extends Element
             }
         }
 
-        return parent::render($content, $attribs, $element, $form);
+        $markup = parent::render($content, $attribs, $element, $form);
+
+        if ($content instanceof ElementInterface) {
+            if ($this->isElementHasError($content, $form)) {
+                $element->setOption('has_error', true);
+            }
+            if ($content->getOption('has_feedback')) {
+                $element->setOption('has_feedback', true);
+            }
+        }
+
+        return $markup;
     }
 
     /**
