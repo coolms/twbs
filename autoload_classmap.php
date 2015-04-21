@@ -29,7 +29,6 @@ return array(
     'CmsTwbs\Form\View\Helper\FormEmail'                     => __DIR__ . '/src/Form/View/Helper/FormEmail.php',
     'CmsTwbs\Form\View\Helper\FormFile'                      => __DIR__ . '/src/Form/View/Helper/FormFile.php',
     'CmsTwbs\Form\View\Helper\FormHidden'                    => __DIR__ . '/src/Form/View/Helper/FormHidden.php',
-    'CmsTwbs\Form\View\Helper\FormMessages'                  => __DIR__ . '/src/Form/View/Helper/FormMessages.php',
     'CmsTwbs\Form\View\Helper\FormMonthSelect'               => __DIR__ . '/src/Form/View/Helper/FormMonthSelect.php',
     'CmsTwbs\Form\View\Helper\FormNumber'                    => __DIR__ . '/src/Form/View/Helper/FormNumber.php',
     'CmsTwbs\Form\View\Helper\FormPanel'                     => __DIR__ . '/src/Form/View/Helper/FormPanel.php',

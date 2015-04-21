@@ -104,20 +104,38 @@ return [
         ],
     ],
     'view_helper_config' => [
-        'flashmessenger' => [
-            'message_open_format'      => '<div%s><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><ul><li>',
-            'message_separator_string' => '</li><li>',
-            'message_close_string'     => '</li></ul></div>',
-        ],
         'formelementerrors' => [
-            'message_open_format'      => '<div%s><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><ul><li>',
+            'message_open_format' => '<ul%s><li>',
             'message_separator_string' => '</li><li>',
-            'message_close_string'     => '</li></ul></div>',
+            'message_close_string' => '</li></ul>',
+        ],
+        'formmessages' => [
+            'message_open_format' => '<div%s><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><ul><li>',
+            'message_separator_string' => '</li><li>',
+            'message_close_string' => '</li></ul></div>',
+            'class_messages' => [
+                'info' => 'alert alert-dismissable alert-info',
+                'error' => 'alert alert-dismissable alert-danger',
+                'success' => 'alert alert-dismissable alert-success',
+                'default' => 'alert alert-dismissable alert-default',
+                'warning' => 'alert alert-dismissable alert-warning',
+            ],
+        ],
+        'flashmessenger' => [
+            'message_open_format' => '<div%s><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><ul><li>',
+            'message_separator_string' => '</li><li>',
+            'message_close_string' => '</li></ul></div>',
+            'class_messages' => [
+                'info' => 'alert alert-dismissable alert-info',
+                'error' => 'alert alert-dismissable alert-danger',
+                'success' => 'alert alert-dismissable alert-success',
+                'default' => 'alert alert-dismissable alert-default',
+                'warning' => 'alert alert-dismissable alert-warning',
+            ],
         ],
     ],
     'view_helpers' => [
         'aliases' => [
-            'formMessages' => 'CmsTwbs\Form\View\Helper\FormMessages',
             'icon' => 'glyphicon',
         ],
         'invokables' => [
