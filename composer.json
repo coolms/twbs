@@ -3,7 +3,7 @@
   "description" : "CoolMS2 Twitter Bootstrap Module",
   "version" : "0.1.0",
   "type" : "library",
-  "keywords" : ["coolms", "twitter", "bootstrap"],
+  "keywords" : [ "zf2", "coolms", "coolms2", "twitter", "bootstrap" ],
   "homepage" : "https://github.com/coolms/twbs",
   "license" : "BSD-3-Clause",
   "authors" : [ {
@@ -22,7 +22,7 @@
         "phpunit/phpunit" : "~4.5"
   },
   "autoload" : {
-        "psr-4" : { "CmsTwbs\\" : "src/" }
+    "psr-4" : { "CmsTwbs\\" : "src/" }
   },
   "autoload-dev" : {
     "psr-4": { "CmsTwbsTest\\" : "tests/" }
