@@ -12,13 +12,20 @@ namespace CmsTwbs;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface,
     Zend\ModuleManager\Feature\ConfigProviderInterface,
-    Zend\ModuleManager\Feature\ViewHelperProviderInterface;
+    Zend\ModuleManager\ModuleManager;
 
 class Module implements
     AutoloaderProviderInterface,
-    ConfigProviderInterface,
-    ViewHelperProviderInterface
+    ConfigProviderInterface
 {
+    /**
+     * @param ModuleManager $moduleManager
+     */
+    public function init(ModuleManager $moduleManager)
+    {
+        $moduleManager->loadModule('CmsCommon');
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -43,17 +50,5 @@ class Module implements
     public function getConfig()
     {
         return include __DIR__ . '/../config/module.config.php';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getViewHelperConfig()
-    {
-        return [
-            'invokables' => [
-                'CmsTwbs\Form\View\Helper\FormMessages' => 'CmsTwbs\Form\View\Helper\FormMessages',
-            ],
-        ];
     }
 }
