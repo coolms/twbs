@@ -12,7 +12,7 @@ namespace CmsTwbs\Factory;
 
 use Zend\ServiceManager\FactoryInterface,
     Zend\ServiceManager\ServiceLocatorInterface,
-    CmsTwb3\Filter\LessPhpFilter;
+    CmsTwbs\Filter\LessPhpFilter;
 
 class LessPhpFilterFactory implements FactoryInterface
 {
