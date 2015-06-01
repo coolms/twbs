@@ -18,29 +18,29 @@ use Zend\Form\ElementInterface,
 class FormGroupElement extends Element
 {
     /**
-     * @param  string|ElementInterface $content
-     * @param  array $attribs
-     * @param  ElementInterface $element
-     * @param  FormInterface $form
-     * @return string
+     * {@inheritDoc}
      */
-    public function render($content, array $attribs = [], ElementInterface $element = null, FormInterface $form = null)
-    {
+    public function render(
+        $content,
+        array $attribs = [],
+        ElementInterface $element = null,
+        FormInterface $form = null
+    ) {
         if (is_string($content) && $element && $form) {
             $elements = $this->getFieldsetElements($element, $form);
-            $content  = $this->getFieldsetElementByName($content, $elements);
-            if (!$content) {
+            if (!isset($elements[$content])) {
                 return '';
             }
+
+            $content = $elements[$content];
         }
 
         if ($content instanceof ElementInterface) {
             $helper = $this->getElementHelper();
-            if ($decorators = (array) $content->getOption($helper->getDecoratorNamespace())) {
-                // Disable row decorator
-                $decorators['row']['placement'] = false;
-                $content->setOption($helper->getDecoratorNamespace(), $decorators);
-            }
+            $decorators = (array) $content->getOption($helper->getDecoratorNamespace());
+            // Disable row decorator
+            $decorators['row']['placement'] = false;
+            $content->setOption($helper->getDecoratorNamespace(), $decorators);
         }
 
         $markup = parent::render($content, $attribs, $element, $form);
@@ -49,6 +49,7 @@ class FormGroupElement extends Element
             if ($this->isElementHasError($content, $form)) {
                 $element->setOption('has_error', true);
             }
+
             if ($content->getOption('has_feedback')) {
                 $element->setOption('has_feedback', true);
             }

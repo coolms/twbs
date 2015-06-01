@@ -49,10 +49,12 @@ class ControlLabel extends ElementLabel implements OrderedDecoratorInterface, Pl
                 if ($element instanceof LabelAwareInterface) {
                     $srOnly = $element->getLabelOption('sr_only');
                 }
+
                 if (null === $srOnly && $element->hasAttribute('placeholder')) {
                     $srOnly = true;
                 }
             }
+
             if ($srOnly) {
                 $attribs = array_merge_recursive($attribs, ['class' => 'sr-only']);
             }

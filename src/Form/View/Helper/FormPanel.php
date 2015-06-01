@@ -11,6 +11,10 @@
 namespace CmsTwbs\Form\View\Helper;
 
 use Zend\Form\FormInterface,
+    Zend\Stdlib\ArrayUtils,
+    Zend\View\Helper\AbstractHelper,
+    CmsCommon\View\Exception\InvalidArgumentException,
+    CmsCommon\View\Exception\InvalidHelperException,
     CmsTwbs\View\Helper\Panel;
 
 /**
@@ -26,6 +30,68 @@ class FormPanel extends Panel
         'Zend\Form\Element\Csrf',
         'Zend\Form\Element\Submit',
     ];
+
+    /**
+     * The name of the default view helper that is used to render form elements.
+     *
+     * @var string
+     */
+    protected $defaultFieldsetHelper = 'form_collection';
+
+    /**
+     * The view helper used to render form elements.
+     *
+     * @var AbstractHelper
+     */
+    protected $fieldsetHelper;
+
+    /**
+     * The name of the default view helper that is used to render form's open/close tags.
+     *
+     * @var string
+     */
+    protected $defaultFormHelper = 'form';
+
+    /**
+     * The view helper used to render form's open/close tags.
+     *
+     * @var AbstractHelper
+     */
+    protected $formHelper;
+
+    /**
+     * The name of the default view helper that is used to render form messages.
+     *
+     * @var string
+     */
+    protected $defaultFormMessagesHelper = 'form_messages';
+
+    /**
+     * The view helper used to render form messages.
+     *
+     * @var AbstractHelper
+     */
+    protected $formMessagesHelper;
+
+    /**
+     * @var string
+     */
+    protected $defaultLabelHelper = 'form_label';
+
+    /**
+     * @var AbstractHelper
+     */
+    protected $labelHelper;
+
+    /**
+     * @var string
+     */
+    protected $defaultRowHelper = 'form_row';
+
+    /**
+     * @var AbstractHelper
+     */
+    protected $rowHelper;
 
     /**
      * @param FormInterface $form
@@ -50,48 +116,179 @@ class FormPanel extends Panel
      * @param array $attribs
      * @param mixed $header
      * @param mixed $footer
+     * @throws InvalidArgumentException
      * @return string
      */
     public function render($form, array $attribs = [], $header = null, $footer = null)
     {
         if (!$form instanceof FormInterface) {
-            throw new \InvalidArgumentException(sprintf(
+            throw new InvalidArgumentException(sprintf(
                 'First argument must be an instance of Zend\Form\FormInterface; %s given',
                 is_object($form) ? get_class($form) : gettype($form)
             ));
         }
 
-        $renderer = $this->getView();
-        if (!method_exists($renderer, 'plugin')) {
+        if (!method_exists($this->view, 'plugin')) {
         	// Bail early if renderer is not pluggable
         	return '';
         }
 
+        if (!array_key_exists('class', $attribs)) {
+            $attribs['class'] = 'panel-primary';
+        }
+
+        if (method_exists($form, 'prepare')) {
+            $form->prepare();
+        }
+
+        $formOpenTag = $this->getFormHelper()->openTag($form);
+
         if (null === $header && $form->getLabel()) {
-            $labelPlugin = $renderer->plugin('formLabel');
+            $labelPlugin = $this->getLabelHelper();
             $header = $labelPlugin($form);
         }
 
-        $rowPlugin = $renderer->plugin('form_row');
-        foreach ($form as $elementOrFieldset) {
+        $rowHelper = $this->getRowHelper();
+        foreach (ArrayUtils::iteratorToArray($form) as $elementOrFieldset) {
             foreach ($this->defaultFooterElementsByType as $type) {
                 if ($elementOrFieldset instanceof $type) {
-                    $footer .= $rowPlugin($elementOrFieldset);
+                    $footer .= $rowHelper($elementOrFieldset);
                     $elementOrFieldset->setOption('__rendered__', true);
                     break;
                 }
             }
         }
+
         if (func_get_arg(3) !== null) {
             $footer = func_get_arg(3);
         }
 
-        $collectionPlugin = $renderer->plugin('form_collection');
-        $content = $collectionPlugin($form, false);
+        $formMessagesHelper = $this->getFormMessagesHelper();
+        $fieldsetHelper = $this->getFieldsetHelper();
+        $content = $formMessagesHelper($form) . $fieldsetHelper($form, false);
 
-        $formPlugin = $renderer->plugin('form');
-        return $formPlugin->openTag($form)
+        return $formOpenTag
             . parent::render($content, $attribs, $header, $footer)
-            . $formPlugin->closeTag();
+            . $this->getFormHelper()->closeTag();
+    }
+
+    /**
+     * Retrieve the fieldset helper
+     *
+     * @return AbstractHelper
+     * @throws InvalidHelperException
+     */
+    protected function getFieldsetHelper()
+    {
+        if ($this->fieldsetHelper) {
+            return $this->fieldsetHelper;
+        }
+
+        if (method_exists($this->view, 'plugin')) {
+            $this->fieldsetHelper = $this->view->plugin($this->defaultFieldsetHelper);
+        }
+
+        if (!$this->fieldsetHelper instanceof AbstractHelper) {
+            // @todo Ideally the helper should implement an interface.
+    	    throw InvalidHelperException::invalidHelperInstance($this->fieldsetHelper);
+        }
+
+        return $this->fieldsetHelper;
+    }
+
+    /**
+     * Retrieve the form helper
+     *
+     * @return AbstractHelper
+     * @throws InvalidHelperException
+     */
+    protected function getFormHelper()
+    {
+        if ($this->formHelper) {
+            return $this->formHelper;
+        }
+
+        if (method_exists($this->view, 'plugin')) {
+            $this->formHelper = $this->view->plugin($this->defaultFormHelper);
+        }
+
+        if (!$this->formHelper instanceof AbstractHelper) {
+            // @todo Ideally the helper should implement an interface.
+            throw InvalidHelperException::invalidHelperInstance($this->formHelper);
+        }
+
+        return $this->formHelper;
+    }
+
+    /**
+     * Retrieve the form messages helper
+     *
+     * @return AbstractHelper
+     * @throws InvalidHelperException
+     */
+    protected function getFormMessagesHelper()
+    {
+        if ($this->formMessagesHelper) {
+            return $this->formMessagesHelper;
+        }
+
+        if (method_exists($this->view, 'plugin')) {
+            $this->formMessagesHelper = $this->view->plugin($this->defaultFormMessagesHelper);
+        }
+
+        if (!$this->formMessagesHelper instanceof AbstractHelper) {
+            // @todo Ideally the helper should implement an interface.
+            throw InvalidHelperException::invalidHelperInstance($this->formMessagesHelper);
+        }
+
+        return $this->formMessagesHelper;
+    }
+
+    /**
+     * Retrieve the label helper
+     *
+     * @return AbstractHelper
+     * @throws InvalidHelperException
+     */
+    protected function getLabelHelper()
+    {
+        if ($this->labelHelper) {
+            return $this->labelHelper;
+        }
+
+        if (method_exists($this->view, 'plugin')) {
+            $this->labelHelper = $this->view->plugin($this->defaultLabelHelper);
+        }
+
+        if (!$this->labelHelper instanceof AbstractHelper) {
+            // @todo Ideally the helper should implement an interface.
+            throw InvalidHelperException::invalidHelperInstance($this->labelHelper);
+        }
+
+        return $this->labelHelper;
+    }
+
+    /**
+     * Retrieve the form row helper
+     *
+     * @return AbstractHelper
+     * @throws InvalidHelperException
+     */
+    protected function getRowHelper()
+    {
+        if ($this->rowHelper) {
+            return $this->rowHelper;
+        }
+
+        if (method_exists($this->view, 'plugin')) {
+            $this->rowHelper = $this->view->plugin($this->defaultRowHelper);
+        }
+
+        if (!$this->rowHelper instanceof AbstractHelper) {
+            // @todo Ideally the helper should implement an interface.
+    	    throw InvalidHelperException::invalidHelperInstance($this->rowHelper);
+        }
+
+        return $this->rowHelper;
     }
 }

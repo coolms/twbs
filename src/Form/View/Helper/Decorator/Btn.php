@@ -26,4 +26,40 @@ class Btn extends Element
      * @var string
      */
     protected $defaultClass = 'btn';
+
+    /**
+     * @var bool
+     */
+    protected $renderAsBlock = false;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function render(
+        $content,
+        array $attribs = [],
+        ElementInterface $element = null,
+        FormInterface $form = null
+    ) {
+        $renderAsBlock = $this->renderAsBlock;
+
+        if ($form && $renderAsBlock) {
+            $class = $form->getAttribute('class');
+            if (strpos($class, 'form-inline') !== false
+                || strpos($class, 'form-horizontal') === false
+            ) {
+                $renderAsBlock = false;
+            }
+        }
+
+        if ($renderAsBlock) {
+            if (empty($attribs['class'])) {
+                $attribs['class'] = 'btn-block';
+            } elseif (strpos($attribs['class'], 'btn-block') === false) {
+                $attribs['class'] = $attribs['class'] . ' btn-block';
+            }
+        }
+
+        return parent::render($content, $attribs, $element, $form);
+    }
 }

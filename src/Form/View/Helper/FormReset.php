@@ -21,7 +21,7 @@ class FormReset extends ZendFormReset implements DecoratorProviderInterface
     protected $decoratorSpecification = [
         'element'   => ['type'  => 'btnReset'],
         'col'       => ['type'  => 'formGroupCol'],
-        'row'       => ['type'  => 'formGroup'],
+        'row'       => ['type'  => 'formGroupRow'],
     ];
 
     /**

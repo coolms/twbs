@@ -13,14 +13,14 @@ namespace CmsTwbs\Form\View\Helper\Decorator;
 use Zend\Form\ElementInterface,
     Zend\Form\FormInterface,
     CmsCommon\View\Helper\Decorator\OrderedDecoratorInterface,
-    CmsTwbs\View\Helper\Col;
+    CmsTwbs\View\Helper\Row;
 
-class FormGroupCol extends Col implements OrderedDecoratorInterface
+class FormGroupRow extends Row implements OrderedDecoratorInterface
 {
     /**
      * @var int
      */
-    protected $order = 9000;
+    protected $order = 10000;
 
     /**
      * @param string $content
@@ -59,18 +59,6 @@ class FormGroupCol extends Col implements OrderedDecoratorInterface
             $class = $form->getAttribute('class');
             if (strpos($class, 'form-inline') !== false) {
                 return $content;
-            }
-
-            if (strpos($class, 'form-horizontal') !== false
-                && empty($attribs['class'])
-                && $form->has('submit')
-                && $form->has('reset')
-            ) {
-                if ($form->get('submit') === $element) {
-                    $attribs['class'] = 'col-xs-12 col-sm-8';
-                } elseif ($form->get('reset') === $element) {
-                    $attribs['class'] = 'col-xs-12 col-sm-4';
-                }
             }
         }
 

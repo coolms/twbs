@@ -1,10 +1,17 @@
+/* ========================================================================
+ * CmsTwbs: bootstrap-tab-bookmark.js v0.1.0
+ * https://github.com/coolms/twbs
+ * ========================================================================
+ * Copyright 2006-2015 Altgraphic, ALC.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
 
-if (typeof jQuery === "undefined") { throw new Error("CmsTwb3's tab.js requires jQuery"); }
+if (typeof jQuery === "undefined") { throw new Error("bootstrap-tab-bookmark.js plugin requires jQuery"); }
 
-; var CmsTwb3 = {};
+; var CmsTwbs = {};
 
 ;(function($){
-	CmsTwb3.Tab = {
+	CmsTwbs.Tab = {
         bookmark: function(selector)
         {
             if(selector == undefined){

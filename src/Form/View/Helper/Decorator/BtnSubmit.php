@@ -10,10 +10,18 @@
 
 namespace CmsTwbs\Form\View\Helper\Decorator;
 
+use Zend\Form\ElementInterface,
+    Zend\Form\FormInterface;
+
 class BtnSubmit extends Btn
 {
     /**
      * @var string
      */
     protected $defaultClass = 'btn btn-primary';
+
+    /**
+     * @var bool
+     */
+    protected $renderAsBlock = true;
 }

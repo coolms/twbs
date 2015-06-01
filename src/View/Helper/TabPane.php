@@ -12,12 +12,12 @@ namespace CmsTwbs\View\Helper;
 
 use CmsCommon\View\Helper\HtmlContainer;
 
-class Panel extends HtmlContainer
+class TabPane extends HtmlContainer
 {
     /**
-     * @var string Default panel class
+     * @var string Default tab pane class
      */
-    protected $defaultClass = 'panel';
+    protected $defaultClass = 'tab-pane';
 
     /**@+
      * @var string Templates for the open/close for panel parts tags
@@ -35,23 +35,23 @@ class Panel extends HtmlContainer
      */
     protected $headingAttributes    = ['class' => 'panel-heading'];
     protected $bodyAttributes       = ['class' => 'panel-body'];
-    protected $footerAttributes     = ['class' => 'panel-footer clearfix'];
+    protected $footerAttributes     = ['class' => 'panel-footer'];
     /**@-*/
 
     /**
      * @param string $content
      * @param array $attribs
-     * @param string $header
+     * @param string $label
      * @param string $footer
      * @return self|string
      */
-    public function __invoke($content = null, array $attribs = [], $header = null, $footer = null)
+    public function __invoke($content = null, array $attribs = [], $label = null)
     {
         if (func_num_args() === 0) {
             return $this;
         }
 
-        return $this->render($content, $attribs, $header, $footer);
+        return $this->render($content, $attribs, $label);
     }
 
     /**

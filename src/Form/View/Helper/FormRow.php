@@ -10,9 +10,9 @@
 
 namespace CmsTwbs\Form\View\Helper;
 
-use CmsCommon\Form\View\Helper\FormRow as BaseFormRow;
+use CmsCommon\Form\View\Helper\FormRow as CommonFormRow;
 
-class FormRow extends BaseFormRow
+class FormRow extends CommonFormRow
 {
     /**
      * @var string

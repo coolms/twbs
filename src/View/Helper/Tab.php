@@ -10,20 +10,15 @@
 
 namespace CmsTwbs\View\Helper;
 
-use CmsCommon\View\Helper\HtmlContainer;
+use Zend\View\Helper\AbstractHelper;
 
-class Panel extends HtmlContainer
+class Tab extends AbstractHelper
 {
-    /**
-     * @var string Default panel class
-     */
-    protected $defaultClass = 'panel';
-
     /**@+
      * @var string Templates for the open/close for panel parts tags
      */
-    protected $headingCloseTag  = '</div>';
-    protected $headingOpenTag   = '<div%s>';
+    protected $navCloseTag  = '</div>';
+    protected $navOpenTag   = '<div%s>';
     protected $bodyCloseTag     = '</div>';
     protected $bodyOpenTag      = '<div%s>';
     protected $footerCloseTag   = '</div>';
@@ -35,33 +30,31 @@ class Panel extends HtmlContainer
      */
     protected $headingAttributes    = ['class' => 'panel-heading'];
     protected $bodyAttributes       = ['class' => 'panel-body'];
-    protected $footerAttributes     = ['class' => 'panel-footer clearfix'];
+    protected $footerAttributes     = ['class' => 'panel-footer'];
     /**@-*/
 
+    protected $panes = [];
+
     /**
-     * @param string $content
-     * @param array $attribs
-     * @param string $header
-     * @param string $footer
+     * @param array $panes
+     * @param array $options
      * @return self|string
      */
-    public function __invoke($content = null, array $attribs = [], $header = null, $footer = null)
+    public function __invoke(array $panes = [], array $options = [])
     {
         if (func_num_args() === 0) {
             return $this;
         }
 
-        return $this->render($content, $attribs, $header, $footer);
+        return $this->render($panes, $options);
     }
 
     /**
-     * @param string $content
+     * @param array $panes
      * @param array $attribs
-     * @param string $header
-     * @param string $footer
      * @return string
      */
-    public function render($content, array $attribs = [], $header = null, $footer = null)
+    public function render(array $panes, array $attribs = [])
     {
         $markup = '';
 

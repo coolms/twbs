@@ -10,8 +10,10 @@
 
 namespace CmsTwbs\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormSubmit as ZendFormSubmit,
+use Zend\Form\FormInterface,
+    Zend\Form\View\Helper\FormSubmit as ZendFormSubmit,
     CmsCommon\View\Helper\Decorator\DecoratorProviderInterface;
+use Zend\Form\ElementInterface;
 
 class FormSubmit extends ZendFormSubmit implements DecoratorProviderInterface
 {
@@ -21,13 +23,19 @@ class FormSubmit extends ZendFormSubmit implements DecoratorProviderInterface
     protected $decoratorSpecification = [
         'element'   => ['type'  => 'btnSubmit'],
         'col'       => ['type'  => 'formGroupCol'],
-        'row'       => ['type'  => 'formGroup'],
+        'reset'     => [
+            'type'      => 'formGroupElement',
+            'content'   => 'reset',
+            'order'     => 9050,
+            'placement' => 'append',
+        ],
+        'row'       => ['type'  => 'formGroupRow'],
     ];
 
     /**
      * {@inheritDoc}
      */
-    public function getDecoratorSpecification()
+    public function getDecoratorSpecification(ElementInterface $element = null, FormInterface $form = null)
     {
         return $this->decoratorSpecification;
     }

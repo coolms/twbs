@@ -8,20 +8,14 @@
  * @author    Dmitry Popov <d.popov@altgraphic.com>
  */
 
-namespace CmsTwbs\Form\View\Helper\Decorator;
+namespace CmsTwbs\Form\View\Helper;
 
-use Zend\Form\ElementInterface,
-    Zend\Form\FormInterface;
+use CmsCommon\Form\View\Helper\FormLabel as CommonFormLabel;
 
-class BtnReset extends Btn
+class FormLabel extends CommonFormLabel
 {
     /**
      * @var string
      */
-    protected $defaultClass = 'btn btn-default';
-
-    /**
-     * @var bool
-     */
-    protected $renderAsBlock = true;
+    protected $decoratorNamespace = 'twbs';
 }
