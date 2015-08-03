@@ -36,7 +36,10 @@ class FormCollection extends BaseFormCollection
                 'class'   => 'btn-success btn-xs',
                 'onclick' => "return CmsCommon.Form.Collection.addFieldset(this, 'prepend');",
             ]);
-        } elseif ($element instanceof FieldsetInterface && $element->getOption('allow_remove')) {
+        } elseif ($element instanceof FieldsetInterface &&
+            !$element instanceof Collection &&
+            $element->getOption('allow_remove')
+        ) {
             return $btnHelper($iconHelper('minus'), [
                 'class'   => 'btn-danger btn-xs',
                 'onclick' => 'return CmsCommon.Form.Collection.removeFieldset(this);',
