@@ -176,6 +176,7 @@ class Lessc extends \lessc
         if ($less === null) {
             $less = new self;
         }
+
         return $less->checkedCompile($in, $out);
     }
 
@@ -190,6 +191,7 @@ class Lessc extends \lessc
         if ($less === null) {
             $less = new self;
         }
+
         return $less->cachedCompile($in, $force);
     }
 }

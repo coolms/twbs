@@ -3,6 +3,8 @@
 return array(
     'CmsTwbs\Compiler\Lessc'                                 => __DIR__ . '/src/Compiler/Lessc.php',
     'CmsTwbs\Factory\LessPhpFilterFactory'                   => __DIR__ . '/src/Factory/LessPhpFilterFactory.php',
+    'CmsTwbs\Factory\ModuleOptionsFactory'                   => __DIR__ . '/src/Factory/ModuleOptionsFactory.php',
+    'CmsTwbs\Factory\View\Helper\TwbsHelperFactory'          => __DIR__ . '/src/Factory/View/Helper/TwbsHelperFactory.php',
     'CmsTwbs\Filter\LessPhpFilter'                           => __DIR__ . '/src/Filter/LessPhpFilter.php',
     'CmsTwbs\Form\View\Helper\Decorator\Btn'                 => __DIR__ . '/src/Form/View/Helper/Decorator/Btn.php',
     'CmsTwbs\Form\View\Helper\Decorator\BtnReset'            => __DIR__ . '/src/Form/View/Helper/Decorator/BtnReset.php',
@@ -45,6 +47,8 @@ return array(
     'CmsTwbs\Form\View\Helper\FormUrl'                       => __DIR__ . '/src/Form/View/Helper/FormUrl.php',
     'CmsTwbs\Module'                                         => __DIR__ . '/src/Module.php',
     'CmsTwbs\Mvc\Controller\AdminController'                 => __DIR__ . '/src/Mvc/Controller/AdminController.php',
+    'CmsTwbs\Options\ModuleOptions'                          => __DIR__ . '/src/Options/ModuleOptions.php',
+    'CmsTwbs\Options\ModuleOptionsInterface'                 => __DIR__ . '/src/Options/ModuleOptionsInterface.php',
     'CmsTwbs\View\Helper\Col'                                => __DIR__ . '/src/View/Helper/Col.php',
     'CmsTwbs\View\Helper\Fa'                                 => __DIR__ . '/src/View/Helper/Fa.php',
     'CmsTwbs\View\Helper\Glyphicon'                          => __DIR__ . '/src/View/Helper/Glyphicon.php',
@@ -53,6 +57,7 @@ return array(
     'CmsTwbs\View\Helper\Row'                                => __DIR__ . '/src/View/Helper/Row.php',
     'CmsTwbs\View\Helper\Tab'                                => __DIR__ . '/src/View/Helper/Tab.php',
     'CmsTwbs\View\Helper\TabPane'                            => __DIR__ . '/src/View/Helper/TabPane.php',
+    'CmsTwbs\View\Helper\Twbs'                               => __DIR__ . '/src/View/Helper/Twbs.php',
     'CmsTwbsTest\Framework\TestCase'                         => __DIR__ . '/tests/Framework/TestCase.php',
     'CmsTwbsTest\SampleTest'                                 => __DIR__ . '/tests/SampleTest.php',
 );

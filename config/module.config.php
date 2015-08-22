@@ -66,12 +66,30 @@ return [
             ],
         ],
     ],
+    'cmsjqgrid' => [
+        'grid_options' => [
+            'styleUI' => 'Bootstrap',
+        ],
+    ],
+    'cmsjquery' => [
+        'plugins' => [
+            'twbs' => ['onLoad' => true],
+        ],
+    ],
     'controllers' => [
         'aliases' => [
             'CmsTwbs\Controller\Admin' => 'CmsTwbs\Mvc\Controller\AdminController',
         ],
         'invokables' => [
             'CmsTwbs\Mvc\Controller\AdminController' => 'CmsTwbs\Mvc\Controller\AdminController',
+        ],
+    ],
+    'jquery_plugins' => [
+        'aliases' => [
+            'twbs' => 'CmsTwbs\View\Helper\Twbs',
+        ],
+        'factories' => [
+            'CmsTwbs\View\Helper\Twbs' => 'CmsTwbs\Factory\View\Helper\TwbsHelperFactory',
         ],
     ],
     'navigation_helpers' => [
@@ -108,10 +126,12 @@ return [
     ],
     'service_manager' => [
         'aliases' => [
+            'CmsTwbs\Options\ModuleOptionsInterface' => 'CmsTwbs\Options\ModuleOptions',
             'LessPhpFilter' => 'CmsTwbs\Filter\LessPhpFilter',
         ],
         'factories' => [
             'CmsTwbs\Filter\LessPhpFilter' => 'CmsTwbs\Factory\LessPhpFilterFactory',
+            'CmsTwbs\Options\ModuleOptions' => 'CmsTwbs\Factory\ModuleOptionsFactory',
         ],
     ],
     'view_helper_config' => [
@@ -199,10 +219,6 @@ return [
         ],
     ],
     'view_manager' => [
-        'template_map' => [
-            'layout/bootstrap' => __DIR__ . '/../view/layout/bootstrap.phtml',
-            'twbs' => __DIR__ . '/../view/layout/bootstrap.phtml',
-        ],
         'template_path_stack' => [
             __NAMESPACE__ => __DIR__ . '/../view',
         ],
