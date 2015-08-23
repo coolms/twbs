@@ -73,7 +73,7 @@ return [
     ],
     'cmsjquery' => [
         'plugins' => [
-            'twbs' => ['onLoad' => true],
+            'twbs' => ['onload' => true],
         ],
     ],
     'controllers' => [
