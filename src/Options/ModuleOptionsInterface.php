@@ -46,46 +46,46 @@ interface ModuleOptionsInterface
     public function getUseCdn();
 
     /**
-     * @param string $path
+     * @param array $files
      * @return self
      */
-    public function setPath($path);
-
-    /**
-     * @return string
-     */
-    public function getPath();
-
-    /**
-     * @param string $url
-     * @return self
-     */
-    public function setCdnUrl($url);
-
-    /**
-     * @return string
-     */
-    public function getCdnUrl();
-
-    /**
-     * @param array|string $path
-     * @return self
-     */
-    public function setCssPath($path);
+    public function setFiles($files);
 
     /**
      * @return array
      */
-    public function getCssPath();
+    public function getFiles();
 
     /**
-     * @param array|string $url
+     * @param array $files
      * @return self
      */
-    public function setCssCdnUrl($url);
+    public function setCdnFiles($files);
 
     /**
      * @return array
      */
-    public function getCssCdnUrl();
+    public function getCdnFiles();
+
+    /**
+     * @param array|string $files
+     * @return self
+     */
+    public function setCssFiles($files);
+
+    /**
+     * @return array
+     */
+    public function getCssFiles();
+
+    /**
+     * @param array|string $files
+     * @return self
+     */
+    public function setCssCdnFiles($files);
+
+    /**
+     * @return array
+     */
+    public function getCssCdnFiles();
 }

@@ -21,39 +21,59 @@ use CmsJquery\View\Helper\Plugin\AbstractPlugin,
 class Twbs extends AbstractPlugin
 {
     /**
-     * @return self
+     * @var string
+     */
+    protected $basePath = '';
+
+    /**
+     * {@inheritDoc}
      */
     public function init()
     {
         $options = $this->getOptions();
 
         if (!$options['enabled']) {
-            return $this;
+            return;
         }
 
         $this->headMeta()->appendHttpEquiv('X-UA-Compatible', 'IE=Edge', ['conditional' => 'IE'])
             ->appendName('viewport', 'width=device-width, initial-scale=1.0');
 
         if ($options['use_cdn']) {
-            $path = $options['cdn_url'];
-            $cssPaths = $options['css_cdn_url'];
+            $files = $options['cdn_files'];
+            $cssFiles = $options['css_cdn_files'];
             $html5shiv = '//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js';
             $respond = '//oss.maxcdn.com/respond/1.4.2/respond.min.js';
         } else {
-            $path = $this->getView()->basePath($options['path']);
-            $cssPaths = array_map([$this->getView(), 'basePath'], $options['css_path']);
-            $html5shiv = $this->getView()->basePath('assets/cms-twbs/js/html5shiv.min.js');
-            $respond = $this->getView()->basePath('assets/cms-twbs/js/respond.min.js');
+            $files = $this->basePath($this->getFiles());
+            $cssFiles = array_map([$this, 'basePath'], $this->getCssFiles());
+            $html5shiv = $this->basePath('js/html5shiv.min.js');
+            $respond = $this->basePath('js/respond.min.js');
         }
 
-        foreach ($cssPaths as $cssPath) {
-            $this->headLink()->appendStylesheet(sprintf($cssPath, $options['version']));
-        }
+        $cssFiles = array_map('sprintf', $cssFiles, array_fill(0, count($cssFiles), $options['version']));
+        array_map([$this->headLink(), 'appendStylesheet'], $cssFiles);
 
-        $this->headScript()->appendFile(sprintf($path, $options['version']))
-            ->appendFile($html5shiv, 'text/javascript', ['conditional' => 'lt IE 9'])
+        $files = array_map('sprintf', $files, array_fill(0, count($files), $options['version']));
+        array_map([$this->headScript(), 'appendFile'], $files);
+
+        $this->headScript()->appendFile($html5shiv, 'text/javascript', ['conditional' => 'lt IE 9'])
             ->appendFile($respond, 'text/javascript', ['conditional' => 'lt IE 9']);
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function __invoke($element = null, array $options = [])
+    {
         return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getNamespace()
+    {
+        return __NAMESPACE__;
     }
 }

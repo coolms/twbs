@@ -37,26 +37,30 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface
     protected $useCdn = false;
 
     /**
-     * @var string
+     * @var array
      */
-    protected $path = 'assets/cms-twbs/js/bootstrap.min.js';
-
-    /**
-     * @var string
-     */
-    protected $cdnUrl = '//maxcdn.bootstrapcdn.com/bootstrap/%s/js/bootstrap.min.js';
-
-    /**
-     * @var string
-     */
-    protected $cssPath = [
-        'assets/cms-twbs/css/bootstrap-ext.min.css',
+    protected $files = [
+        'js/bootstrap.min.js'
     ];
 
     /**
-     * @var string
+     * @var array
      */
-    protected $cssCdnUrl = [
+    protected $cdnFiles = [
+        '//maxcdn.bootstrapcdn.com/bootstrap/%s/js/bootstrap.min.js'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $cssFiles = [
+        'css/bootstrap-ext.min.css',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $cssCdnFiles = [
         '//maxcdn.bootstrapcdn.com/bootstrap/%s/css/bootstrap.min.css',
         '//maxcdn.bootstrapcdn.com/bootstrap/%s/css/bootstrap-theme.min.css'
     ];
@@ -115,68 +119,68 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface
     /**
      * {@inheritDoc}
      */
-    public function setPath($path)
+    public function setFiles($files)
     {
-        $this->path = (string) $path;
+        $this->files = (array) $files;
         return $this;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getPath()
+    public function getFiles()
     {
-        return $this->path;
+        return $this->files;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setCdnUrl($url)
+    public function setCdnFiles($files)
     {
-        $this->cdnUrl = (string) $url;
+        $this->cdnFiles = (array) $files;
         return $this;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getCdnUrl()
+    public function getCdnFiles()
     {
-        return $this->cdnUrl;
+        return $this->cdnFiles;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setCssPath($path)
+    public function setCssFiles($files)
     {
-        $this->cssPath = (array) $path;
+        $this->cssFiles = (array) $files;
         return $this;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getCssPath()
+    public function getCssFiles()
     {
-        return $this->cssPath;
+        return $this->cssFiles;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setCssCdnUrl($url)
+    public function setCssCdnFiles($files)
     {
-        $this->cssCdnUrl = (array) $url;
+        $this->cssCdnFiles = (array) $files;
         return $this;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getCssCdnUrl()
+    public function getCssCdnFiles()
     {
-        return $this->cssCdnUrl;
+        return $this->cssCdnFiles;
     }
 }
