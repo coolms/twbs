@@ -10,6 +10,9 @@
 
 namespace CmsTwbs\Compiler;
 
+use lessc as LessCompailer,
+    Less_Parser;
+
 /**
  * This class provides the part of lessphp API
  *
@@ -17,7 +20,7 @@ namespace CmsTwbs\Compiler;
  *
  * @author Dmitry Popov <d.popov@altgraphic.com>
  */
-class Lessc extends \lessc
+class Lessc extends LessCompailer
 {
     /**
      * Default compailer options
@@ -37,7 +40,7 @@ class Lessc extends \lessc
     private $formatterName;
 
     /**
-     * @see lessc::registerFunction()
+     * @see LessCompailer::registerFunction()
      */
     public function registerFunction($name, $func)
     {
@@ -45,7 +48,7 @@ class Lessc extends \lessc
     }
 
     /**
-     * @see lessc::unregisterFunction()
+     * @see LessCompailer::unregisterFunction()
      */
     public function unregisterFunction($name)
     {
@@ -53,7 +56,7 @@ class Lessc extends \lessc
     }
 
     /**
-     * @see \lessc::setFormatter()
+     * @see LessCompailer::setFormatter()
      */
     public function setFormatter($name)
     {
@@ -61,107 +64,108 @@ class Lessc extends \lessc
     }
 
     /**
-     * @see \lessc::parse()
+     * @see LessCompailer::parse()
      */
     public function parse($buffer, $presets = [])
     {
         $this->setVariables($presets);
-        
+
         switch($this->formatterName){
             case 'compressed':
                 $this->options['compress'] = true;
                 break;
         }
-        
-        $parser = new \Less_Parser($this->options);
+
+        $parser = new Less_Parser($this->options);
         $parser->setImportDirs($this->getImportDirs());
         foreach ($this->libFunctions as $name => $func) {
             $parser->registerFunction($name, $func);
         }
+
         $parser->parse($buffer);
         if (count($this->registeredVars)) {
             $parser->ModifyVars($this->registeredVars);
         }
-        
+
         return $parser->getCss();
     }
 
     /**
-     * @see \lessc::compile()
+     * @see LessCompailer::compile()
      */
     public function compile($string, $name = null)
     {
         $oldImport = $this->importDir;
         $this->importDir = (array)$this->importDir;
-        
+
         $this->allParsedFiles = [];
-        
-        $parser = new \Less_Parser();
+
+        $parser = new Less_Parser();
         $parser->SetImportDirs($this->getImportDirs());
-        
+
         foreach ($this->libFunctions as $name => $func) {
             $parser->registerFunction($name, $func);
         }
+
         $parser->parse($string);
-        
+
         if( count( $this->registeredVars ) ){
             $parser->ModifyVars( $this->registeredVars );
         }
-        
+
         $out = $parser->getCss();
-        
-        $parsed = \Less_Parser::AllParsedFiles();
+
+        $parsed = Less_Parser::AllParsedFiles();
         foreach( $parsed as $file ){
             $this->addParsedFile($file);
         }
-        
+
         $this->importDir = $oldImport;
-        
         return $out;
     }
 
     /**
-     * @see \lessc::compileFile()
+     * @see LessCompailer::compileFile()
      */
     public function compileFile($fname, $outFname = null)
     {
         if (!is_readable($fname)) {
             throw new \RuntimeException('load error: failed to find '.$fname);
         }
-        
+
         $pi = pathinfo($fname);
-        
+
         $oldImport = $this->importDir;
-        
+
         $this->importDir = (array)$this->importDir;
         $this->importDir[] = realpath($pi['dirname']).'/';
-        
+
         $this->allParsedFiles = [];
         $this->addParsedFile($fname);
-        
-        $parser = new \Less_Parser();
+
+        $parser = new Less_Parser();
         $parser->SetImportDirs($this->getImportDirs());
-        
+
         foreach ($this->libFunctions as $name => $func) {
             $parser->registerFunction($name, $func);
         }
         $parser->parseFile($fname);
-        
+
         if( count( $this->registeredVars ) ) $parser->ModifyVars( $this->registeredVars );
-        
+
         $out = $parser->getCss();
-        
-        $parsed = \Less_Parser::AllParsedFiles();
+
+        $parsed = Less_Parser::AllParsedFiles();
         foreach ($parsed as $file) {
             $this->addParsedFile($file);
         }
-        
+
         $this->importDir = $oldImport;
-        
+
         if ($outFname !== null) {
             return file_put_contents($outFname, $out);
         }
-        
+
         return $out;
     }
 

@@ -10,30 +10,16 @@
 
 namespace CmsTwbs\View\Helper;
 
-use CmsCommon\Stdlib\OptionsProviderTrait,
-    CmsJquery\View\Helper\Plugins\AbstractPlugin,
+use CmsJquery\View\Helper\Plugin\AbstractPlugin,
     CmsTwbs\Options\ModuleOptionsInterface;
 
 /**
  * @author Dmitry Popov <d.popov@altgraphic.com>
  *
  * @method Twbs setOptions(\CmsTwbs\Options\ModuleOptionsInterface $options)
- * @method \CmsTwbs\Options\ModuleOptionsInterface getOptions()
  */
 class Twbs extends AbstractPlugin
 {
-    use OptionsProviderTrait;
-
-    /**
-     * __construct
-     *
-     * @param ModuleOptionsInterface $options
-     */
-    public function __construct(ModuleOptionsInterface $options)
-    {
-        $this->setOptions($options);
-    }
-
     /**
      * @return self
      */
@@ -41,30 +27,30 @@ class Twbs extends AbstractPlugin
     {
         $options = $this->getOptions();
 
-        if (!$options->getEnabled()) {
+        if (!$options['enabled']) {
             return $this;
         }
 
         $this->headMeta()->appendHttpEquiv('X-UA-Compatible', 'IE=Edge', ['conditional' => 'IE'])
             ->appendName('viewport', 'width=device-width, initial-scale=1.0');
 
-        if ($options->getUseCdn()) {
-            $path = $options->getCdnUrl();
-            $cssPaths = $options->getCssCdnUrl();
+        if ($options['use_cdn']) {
+            $path = $options['cdn_url'];
+            $cssPaths = $options['css_cdn_url'];
             $html5shiv = '//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js';
             $respond = '//oss.maxcdn.com/respond/1.4.2/respond.min.js';
         } else {
-            $path = $this->getView()->basePath($options->getPath());
-            $cssPaths = array_map([$this->getView(), 'basePath'], $options->getCssPath());
+            $path = $this->getView()->basePath($options['path']);
+            $cssPaths = array_map([$this->getView(), 'basePath'], $options['css_path']);
             $html5shiv = $this->getView()->basePath('assets/cms-twbs/js/html5shiv.min.js');
             $respond = $this->getView()->basePath('assets/cms-twbs/js/respond.min.js');
         }
 
         foreach ($cssPaths as $cssPath) {
-            $this->headLink()->appendStylesheet(sprintf($cssPath, $options->getVersion()));
+            $this->headLink()->appendStylesheet(sprintf($cssPath, $options['version']));
         }
 
-        $this->headScript()->appendFile(sprintf($path, $options->getVersion()))
+        $this->headScript()->appendFile(sprintf($path, $options['version']))
             ->appendFile($html5shiv, 'text/javascript', ['conditional' => 'lt IE 9'])
             ->appendFile($respond, 'text/javascript', ['conditional' => 'lt IE 9']);
 
