@@ -10,22 +10,25 @@
 
 namespace CmsTwbs\Factory\View\Helper;
 
-use Zend\ServiceManager\FactoryInterface,
-    Zend\ServiceManager\ServiceLocatorInterface,
+use Zend\ServiceManager\ServiceLocatorInterface,
+    CmsJquery\Plugin\AbstractJQueryPluginFactory,
     CmsTwbs\View\Helper\Twbs;
 
-class TwbsHelperFactory implements FactoryInterface
+class TwbsPluginHelperFactory extends AbstractJQueryPluginFactory
 {
+    /**
+     * @var string
+     */
+    protected $optionsClass = 'CmsTwbs\\Options\\ModuleOptions';
+
     /**
      * {@inheritDoc}
      *
      * @return Twbs
      */
-    public function createService(ServiceLocatorInterface $helpers)
+    public function createService(ServiceLocatorInterface $plugins)
     {
-        $services = $helpers->getServiceLocator();
-        /* @var $options \CmsTwbs\Options\ModuleOptionsInterface */
-        $options = $services->get('CmsTwbs\\Options\\ModuleOptions');
-        return new Twbs($options);
+        $services = $plugins->getServiceLocator();
+        return new Twbs($this->getCreationOptions($services));
     }
 }

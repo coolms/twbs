@@ -4,7 +4,7 @@ return array(
     'CmsTwbs\Compiler\Lessc'                                 => __DIR__ . '/src/Compiler/Lessc.php',
     'CmsTwbs\Factory\LessPhpFilterFactory'                   => __DIR__ . '/src/Factory/LessPhpFilterFactory.php',
     'CmsTwbs\Factory\ModuleOptionsFactory'                   => __DIR__ . '/src/Factory/ModuleOptionsFactory.php',
-    'CmsTwbs\Factory\View\Helper\TwbsHelperFactory'          => __DIR__ . '/src/Factory/View/Helper/TwbsHelperFactory.php',
+    'CmsTwbs\Factory\View\Helper\TwbsPluginHelperFactory'    => __DIR__ . '/src/Factory/View/Helper/TwbsPluginHelperFactory.php',
     'CmsTwbs\Filter\LessPhpFilter'                           => __DIR__ . '/src/Filter/LessPhpFilter.php',
     'CmsTwbs\Form\View\Helper\Decorator\Btn'                 => __DIR__ . '/src/Form/View/Helper/Decorator/Btn.php',
     'CmsTwbs\Form\View\Helper\Decorator\BtnReset'            => __DIR__ . '/src/Form/View/Helper/Decorator/BtnReset.php',

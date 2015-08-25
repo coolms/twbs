@@ -89,7 +89,7 @@ return [
             'twbs' => 'CmsTwbs\View\Helper\Twbs',
         ],
         'factories' => [
-            'CmsTwbs\View\Helper\Twbs' => 'CmsTwbs\Factory\View\Helper\TwbsHelperFactory',
+            'CmsTwbs\View\Helper\Twbs' => 'CmsTwbs\Factory\View\Helper\TwbsPluginHelperFactory',
         ],
     ],
     'navigation_helpers' => [
