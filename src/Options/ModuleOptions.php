@@ -66,6 +66,11 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface
     ];
 
     /**
+     * @var array
+     */
+    protected $plugins = [];
+
+    /**
      * {@inheritDoc}
      */
     public function setEnabled($flag = true)
@@ -182,5 +187,22 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface
     public function getCssCdnFiles()
     {
         return $this->cssCdnFiles;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setPlugins($plugins)
+    {
+        $this->plugins = (array) $plugins;
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPlugins()
+    {
+        return $this->plugins;
     }
 }

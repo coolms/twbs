@@ -88,4 +88,15 @@ interface ModuleOptionsInterface
      * @return array
      */
     public function getCssCdnFiles();
+
+    /**
+     * @param array|string $plugins
+     * @return self
+     */
+    public function setPlugins($plugins);
+
+    /**
+     * @return array
+     */
+    public function getPlugins();
 }

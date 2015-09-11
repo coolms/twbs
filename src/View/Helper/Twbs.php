@@ -26,6 +26,11 @@ class Twbs extends AbstractPlugin
     protected $basePath = '';
 
     /**
+     * @var array
+     */
+    protected $plugins = [];
+
+    /**
      * {@inheritDoc}
      */
     public function init()
@@ -59,6 +64,8 @@ class Twbs extends AbstractPlugin
 
         $this->headScript()->appendFile($html5shiv, 'text/javascript', ['conditional' => 'lt IE 9'])
             ->appendFile($respond, 'text/javascript', ['conditional' => 'lt IE 9']);
+
+        $this->setupPlugins();
     }
 
     /**
@@ -67,6 +74,39 @@ class Twbs extends AbstractPlugin
     public function __invoke($element = null, array $options = [])
     {
         return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setupPlugins()
+    {
+        $plugins = $this->getPlugins();
+        foreach ($plugins as $plugin => $options) {
+            if (is_array($options) && !empty($options['onload'])) {
+                $this->getPlugin($plugin, $options);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array $plugins
+     * @return self
+     */
+    public function setPlugins(array $plugins)
+    {
+        $this->plugins = $plugins;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPlugins()
+    {
+        return $this->plugins;
     }
 
     /**

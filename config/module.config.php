@@ -76,6 +76,18 @@ return [
             'twbs' => ['onload' => true],
         ],
     ],
+    'cmstwbs' => [
+        'plugins' => [
+            'bootstrap-select' => [
+                'files' => 'bootstrap-select/js/bootstrap-select.min.js',
+                'cssFiles' => 'bootstrap-select/css/bootstrap-select.min.css',
+                'name' => 'selectpicker',
+                'element' => '.selectpicker',
+                'onload' => true,
+                'namespace' => __NAMESPACE__,
+            ],
+        ],
+    ],
     'controllers' => [
         'aliases' => [
             'CmsTwbs\Controller\Admin' => 'CmsTwbs\Mvc\Controller\AdminController',
