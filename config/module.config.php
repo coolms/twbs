@@ -98,10 +98,10 @@ return [
     ],
     'jquery_plugins' => [
         'aliases' => [
-            'twbs' => 'CmsTwbs\View\Helper\Twbs',
+            'twbs' => 'CmsTwbs\View\Helper\Plugin\Twbs',
         ],
         'factories' => [
-            'CmsTwbs\View\Helper\Twbs' => 'CmsTwbs\Factory\View\Helper\TwbsPluginHelperFactory',
+            'CmsTwbs\View\Helper\Plugin\Twbs' => 'CmsTwbs\Factory\View\Helper\TwbsPluginHelperFactory',
         ],
     ],
     'navigation_helpers' => [
