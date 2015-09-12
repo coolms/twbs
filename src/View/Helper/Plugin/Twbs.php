@@ -11,6 +11,7 @@
 namespace CmsTwbs\View\Helper\Plugin;
 
 use CmsJquery\Plugin\JQueryPluginableInterface,
+    CmsJquery\Plugin\JQueryPluginableTrait,
     CmsJquery\View\Helper\Plugin\AbstractPlugin,
     CmsTwbs\Options\ModuleOptionsInterface;
 
@@ -21,15 +22,12 @@ use CmsJquery\Plugin\JQueryPluginableInterface,
  */
 class Twbs extends AbstractPlugin implements JQueryPluginableInterface
 {
+    use JQueryPluginableTrait;
+
     /**
      * @var string
      */
     protected $basePath = '';
-
-    /**
-     * @var array
-     */
-    protected $plugins = [];
 
     /**
      * {@inheritDoc}
@@ -75,81 +73,6 @@ class Twbs extends AbstractPlugin implements JQueryPluginableInterface
     public function __invoke($element = null, array $options = [])
     {
         return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setupPlugins()
-    {
-        foreach ($this->getPlugins() as $plugin => $options) {
-            if (is_array($options) && !empty($options['onload'])) {
-                $this->getPlugin($plugin, $options);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @param array $options
-     * @return AbstractPlugin
-     */
-    protected function getPlugin($name, array $options = [])
-    {
-        $plugins = $this->jQuery()->getJQueryPluginManager();
-        if ($plugins->has($name)) {
-            if (!$options) {
-                $defaults = $this->getPlugins();
-                if (!empty($defaults[$name])) {
-                    $options = $defaults[$name];
-                }
-            }
-
-            return $plugins->get($name, $options);
-        }
-    }
-
-    /**
-     * @param string $plugin
-     * @return AbstractPlugin
-     */
-    public function __get($plugin)
-    {
-        return $this->getPlugin($plugin);
-    }
-
-    /**
-     * @param string $method
-     * @param array $args
-     * @return AbstractPlugin
-     */
-    public function __call($method, $args)
-    {
-        if ($plugin = $this->getPlugin($method)) {
-            return call_user_func_array($plugin, $args);
-        }
-
-        return parent::__call($method, $args);
-    }
-
-    /**
-     * @param array $plugins
-     * @return self
-     */
-    protected function setPlugins(array $plugins)
-    {
-        $this->plugins = $plugins;
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getPlugins()
-    {
-        return $this->plugins;
     }
 
     /**
