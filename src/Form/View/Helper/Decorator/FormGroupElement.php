@@ -40,6 +40,7 @@ class FormGroupElement extends Element
             $decorators = (array) $content->getOption($helper->getDecoratorNamespace());
             // Disable row decorator
             $decorators['row']['placement'] = false;
+            $content->setOption('__rendered__', null);
             $content->setOption($helper->getDecoratorNamespace(), $decorators);
         }
 
