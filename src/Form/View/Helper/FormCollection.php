@@ -23,6 +23,13 @@ use Zend\Form\Element\Collection,
 class FormCollection extends BaseFormCollection
 {
     /**
+     * This is the default label-wrapper
+     *
+     * @var string
+     */
+    protected $labelWrapper = '<legend class="clearfix" style="padding-top:3px;padding-bottom:3px;vertical-align:middle">%s</legend>';
+
+    /**
      * @param ElementInterface $element
      * @return string
      */
@@ -33,7 +40,7 @@ class FormCollection extends BaseFormCollection
 
         if ($element instanceof Collection && $element->allowAdd()) {
             return $btnHelper($iconHelper('plus'), [
-                'class'   => 'btn-success btn-xs',
+                'class'   => 'btn-success pull-right clearfix',
                 'onclick' => "return CmsCommon.Form.Collection.addFieldset(this, 'prepend');",
             ]);
         } elseif ($element instanceof FieldsetInterface &&
@@ -41,7 +48,7 @@ class FormCollection extends BaseFormCollection
             $element->getOption('allow_remove')
         ) {
             return $btnHelper($iconHelper('minus'), [
-                'class'   => 'btn-danger btn-xs',
+                'class'   => 'btn-danger pull-right clearfix',
                 'onclick' => 'return CmsCommon.Form.Collection.removeFieldset(this);',
             ]);
         }

@@ -10,7 +10,8 @@
 
 namespace CmsTwbs\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormSelect as ZendFormSelect,
+use Zend\Form\ElementInterface,
+    Zend\Form\View\Helper\FormSelect as ZendFormSelect,
     CmsCommon\View\Helper\Decorator\DecoratorProviderInterface;
 
 class FormSelect extends ZendFormSelect implements DecoratorProviderInterface
@@ -32,6 +33,28 @@ class FormSelect extends ZendFormSelect implements DecoratorProviderInterface
         'col'       => ['type' => 'formGroupCol'],
         'row'       => ['type' => 'formGroup'],
     ];
+
+    /**
+     * {@inheritDoc}
+     */
+    public function render(ElementInterface $element)
+    {
+        if ($element->hasAttribute('class')) {
+            $class = $element->getAttribute('class');
+            if (strpos($class, 'selectpicker') !== false && $this->getView()->jQuery()->twbs->bootstrapSelect) {
+                if (!$element->hasAttribute('data-width')) {
+                    $element->setAttribute('data-width', 'auto');
+                }
+                if (strpos($class, 'btn-') === false) {
+                    $class .= ' btn-default';
+                }
+                $element->setAttribute('data-style', $class);
+                $element->setAttribute('class', 'selectpicker');
+            }
+        }
+
+        return parent::render($element);
+    }
 
     /**
      * {@inheritDoc}
