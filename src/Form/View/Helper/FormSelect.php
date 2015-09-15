@@ -11,12 +11,12 @@
 namespace CmsTwbs\Form\View\Helper;
 
 use Zend\Form\ElementInterface,
-    Zend\Form\View\Helper\FormSelect as ZendFormSelect,
+    CmsCommon\Form\View\Helper\FormSelect as CommonFormSelect,
     CmsCommon\View\Helper\Decorator\DecoratorProviderInterface;
 
-class FormSelect extends ZendFormSelect implements DecoratorProviderInterface
+class FormSelect extends CommonFormSelect implements DecoratorProviderInterface
 {
-/**
+    /**
      * @var array
      */
     protected $decoratorSpecification = [
