@@ -30,6 +30,11 @@ class FormCollection extends BaseFormCollection
     protected $labelWrapper = '<legend class="clearfix" style="padding-top:3px;padding-bottom:3px;vertical-align:middle">%s</legend>';
 
     /**
+     * @var string
+     */
+    protected $descriptionWrapper = '<div class="help-block">%s</div>';
+
+    /**
      * @param ElementInterface $element
      * @return string
      */
