@@ -10,17 +10,19 @@
 
 namespace CmsTwbs\Factory\View\Helper;
 
-use CmsJquery\Plugin\AbstractJQueryPluginFactory;
+use CmsJquery\Plugin\AbstractJQueryPluginFactory,
+    CmsTwbs\Options\ModuleOptions,
+    CmsTwbs\View\Helper\Plugin\Twbs;
 
 class TwbsPluginHelperFactory extends AbstractJQueryPluginFactory
 {
     /**
      * @var string
      */
-    protected $pluginClass = 'CmsTwbs\\View\\Helper\\Plugin\\Twbs';
+    protected $pluginClass = Twbs::class;
 
     /**
      * @var string
      */
-    protected $optionsClass = 'CmsTwbs\\Options\\ModuleOptions';
+    protected $optionsClass = ModuleOptions::class;
 }

@@ -18,6 +18,8 @@ class LessPhpFilterFactory implements FactoryInterface
 {
     /**
      * {@inheritDoc}
+     *
+     * @return LessPhpFilter
      */
     public function createService(ServiceLocatorInterface $serviceManager)
     {
