@@ -10,7 +10,8 @@
 
 namespace CmsTwbs\Form\View\Helper;
 
-use Zend\Form\FormInterface,
+use Zend\Form\Element,
+    Zend\Form\FormInterface,
     Zend\Stdlib\ArrayUtils,
     Zend\View\Helper\AbstractHelper,
     CmsCommon\View\Exception\InvalidArgumentException,
@@ -26,9 +27,9 @@ class FormPanel extends Panel
      * @var array
      */
     protected $defaultFooterElementsByType = [
-        'Zend\Form\Element\Captcha',
-        'Zend\Form\Element\Csrf',
-        'Zend\Form\Element\Submit',
+        Element\Captcha::class,
+        Element\Csrf::class,
+        Element\Submit::class,
     ];
 
     /**
@@ -123,7 +124,8 @@ class FormPanel extends Panel
     {
         if (!$form instanceof FormInterface) {
             throw new InvalidArgumentException(sprintf(
-                'First argument must be an instance of Zend\Form\FormInterface; %s given',
+                'First argument must be an instance of %s; %s given',
+                FormInterface::class,
                 is_object($form) ? get_class($form) : gettype($form)
             ));
         }
