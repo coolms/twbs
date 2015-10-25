@@ -69,7 +69,7 @@ class FormGroupElement extends Element
         }
 
         if (method_exists($this->view, 'plugin')) {
-            $this->elementHelper = $this->view->plugin('form_row');
+            $this->elementHelper = $this->view->plugin('formRow');
         }
 
         if (!$this->elementHelper instanceof FormRow) {

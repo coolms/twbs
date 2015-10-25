@@ -35,6 +35,11 @@ class FormCollection extends BaseFormCollection
     protected $descriptionWrapper = '<div class="help-block">%s</div>';
 
     /**
+     * @var string
+     */
+    protected $decoratorNamespace = 'twbs';
+
+    /**
      * @param ElementInterface $element
      * @return string
      */
