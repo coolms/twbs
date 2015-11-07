@@ -66,6 +66,26 @@ return [
             ],
         ],
     ],
+    'cmsdatagrid' => [
+        'httpRenderer' => 'twbsTable',
+        'renderers' => [
+            'twbsTable' => [
+                'daterange' => [
+                    'enabled' => false,
+                ],
+                'parameterNames' => [
+                    'currentPage'    => 'currentPage',
+                    'sortColumns'    => 'sortByColumns',
+                    'sortDirections' => 'sortDirections',
+                    'massIds'        => 'ids',
+                    'method'         => 'POST',
+                ],
+                'template' => [
+                    'layout' => 'cms-twbs/datagrid/layout',
+                ],
+            ],
+        ],
+    ],
     'cmsjqgrid' => [
         'grid_options' => [
             'styleUI' => 'Bootstrap',
@@ -232,9 +252,15 @@ return [
             'legend' => 'CmsTwbs\Form\View\Helper\Decorator\Legend',
             'panel' => 'CmsTwbs\View\Helper\Panel',
             'row' => 'CmsTwbs\View\Helper\Row',
+            'twbsDatagridRow' => 'CmsTwbs\Datagrid\View\Helper\Row',
         ],
     ],
     'view_manager' => [
+        'template_map' => [
+            'cms-twbs/datagrid/footer'      => __DIR__ . '/../view/cms-twbs/datagrid/footer.phtml',
+            'cms-twbs/datagrid/layout'      => __DIR__ . '/../view/cms-twbs/datagrid/layout.phtml',
+            'cms-twbs/datagrid/paginator'   => __DIR__ . '/../view/cms-twbs/datagrid/paginator.phtml',
+        ],
         'template_path_stack' => [
             __NAMESPACE__ => __DIR__ . '/../view',
         ],

@@ -1,0 +1,170 @@
+<?php
+/**
+ * CoolMS2 Twitter Bootstrap Module (http://www.coolms.com/)
+ *
+ * @link      http://github.com/coolms/twbs for the canonical source repository
+ * @copyright Copyright (c) 2006-2015 Altgraphic, ALC (http://www.altgraphic.com)
+ * @license   http://www.coolms.com/license/new-bsd New BSD License
+ * @author    Dmitry Popov <d.popov@altgraphic.com>
+ */
+
+namespace CmsTwbs;
+
+use CmsDatagrid\Column\Type;
+
+/* @var $col \CmsDatagrid\Column\AbstractColumn */
+
+$hasMassActions = false;
+if(count($this->massActions) > 0){
+    $hasMassActions = true;
+}
+
+$orderOnclick  = 'document.forms[\'form_'.$this->gridId.'\'].elements[\'' . $this->parameterNames['sortColumns'] . '\'].value = \'%s\';';
+$orderOnclick .= 'document.forms[\'form_'.$this->gridId.'\'].elements[\'' . $this->parameterNames['sortDirections'] . '\'].value = \'%s\';';
+$orderOnclick .= 'document.forms[\'form_'.$this->gridId.'\'].submit(); return false;';
+
+$classes = ['table', 'table-striped', 'table-bordered'];
+if ($this->rowClickAction !== null) {
+    $classes[] = 'table-hover';
+}
+
+?>
+<?php if ($this->daterangeEnabled): ?>
+    <?php $this->inlineScript()->captureStart();?>
+    $(function(){
+        <?php //If daterange bootstrapTable filter is enable show it ?>
+        $('input.daterange').daterangepicker(
+        <?= $this->json($this->daterangeParameters, ['enableJsonExprFinder' => true]); ?>
+        ).on('apply.daterangepicker', function(ev,picker){
+            this.form.submit();
+        });
+    });
+    <?php $this->inlineScript()->captureEnd(); ?>
+<?php endif; ?>
+
+<form name="form_<?= $this->gridId; ?>" method="<?= $this->parameterNames['method']; ?>" action="<?= $this->url(null, [], [], true); ?>">
+    <input type="submit" style="width:0px; height:0px; margin:0; padding:0; border:0;" name="hiddenSubmit">
+    <input type="hidden" name="<?= $this->parameterNames['sortColumns']; ?>" value="<?= $this->activeParameters[$this->parameterNames['sortColumns']]; ?>">
+    <input type="hidden" name="<?= $this->parameterNames['sortDirections']; ?>" value="<?= $this->activeParameters[$this->parameterNames['sortDirections']]; ?>">
+<?php foreach($this->parameters as $name => $value): ?>
+    <input type="hidden" name="<?= $name; ?>" value="<?= $value; ?>">
+<?php endforeach; ?>
+
+    <?= $this->toolbar; ?>
+    <?= $this->partial($this->templateToolbar); ?>
+
+<div class="table-responsive">
+    <table class="<?= implode(' ', $classes); ?>">
+        <thead>
+            <tr style="background-color: #EEE">
+                <?php if ($hasMassActions === true): ?>
+                    <th><input type="checkbox" onclick="<?= $this->gridId; ?>_toggleCheckboxes(this);"></th>
+                <?php endif; ?>
+                <?php foreach ($this->columns as $col):
+                    $classes = [];
+                    $styles = [];
+
+                    $id = $col->getUniqueId();
+
+                    $label = '';
+                    if($col->getLabel() != ''){
+                        $label = $this->translate($col->getLabel());
+                    }
+
+                    $width = $col->getWidth();
+                    if($width != ''){
+                        $styles[] = 'width: '.$this->escapehtmlattr($width).'%';
+                    }
+
+
+                    if($col->isHidden() === true){
+                        $classes[] = 'hidden';
+                    }
+                    if($col->getType() instanceof Type\Number){
+                        $styles[] = 'text-align: right';
+                    }
+                ?>
+                    <th id="<?= $this->escapehtmlattr($id); ?>" class="<?= implode(',', $classes); ?>" style="<?= implode(';', $styles); ?>">
+                        <?php if ($col->isUserSortEnabled() === true):
+                            $direction = $col->isSortActive() === true && $col->getSortActiveDirection() === 'ASC'
+                                ? 'DESC'
+                                : 'ASC';
+                        ?>
+                            <a href="<?= $this->url(
+                                null,
+                                [],
+                                [
+                                    'query' => array_merge($this->activeParameters, [
+                                            $this->parameterNames['sortColumns'] => $col->getUniqueId(),
+                                            $this->parameterNames['sortDirections'] => $direction,
+                                        ]
+                                    )
+                                ],
+                                true
+                                ); ?>" onclick="<?= sprintf($orderOnclick, $col->getUniqueId(), $direction); ?>">
+                                <?= $this->escapeHtml($label); ?>
+                            </a>
+                        <?php else: ?>
+                            <?= $this->escapeHtml($label); ?>
+                        <?php endif; ?>
+
+                        <?php if($col->isSortActive() === true): ?>
+                            <?php if ($col->getSortActiveDirection() === 'ASC'): ?>
+                                <i class="icon-chevron-down glyphicon glyphicon-chevron-down"></i>
+                            <?php else: ?>
+                                <i class="icon-chevron-up glyphicon glyphicon-chevron-up"></i>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </th>
+                <?php endforeach; ?>
+            </tr>
+
+            <!-- User filters -->
+            <?php if($this->isUserFilterEnabled === true): ?>
+                <tr style="background-color: #EEE">
+                <?php if($hasMassActions === true): ?>
+                    <td></td>
+                <?php endif; ?>
+
+                <?php foreach ($this->columns as $col):
+                    $classes = [];
+                    if($col->isHidden() === true){
+                        $classes[] = 'hidden';
+                    }
+
+                    $htmlFilter = '';
+                    if ($col->isUserFilterEnabled() === true) {
+                        if ($col->hasFilterSelectOptions() === true) {
+                            $htmlFilter = '<select name="toolbarFilters[' . $col->getUniqueId() . ']" style="width: 80%" onchange="this.form.submit()" class="form-control">';
+                            foreach ($col->getFilterSelectOptions() as $value => $option) {
+                                if ($col->getFilterActiveValue() === $value) {
+                                    $htmlFilter .= '<option value="' . $value . '" selected="selected">' . $option . '</option>';
+                                } else if (($col->getFilterActiveValue() === '') && ($value === '')){
+                                    $htmlFilter .= '<option value="' . $value . '" selected="selected">' . $option . '</option>';
+                                } else {
+                                    $htmlFilter .= '<option value="' . $value . '">' . $option . '</option>';
+                                }
+                            }
+                            $htmlFilter .= '</select>';
+                        } else if ($col->getType() instanceof Type\DateTime){
+                            $htmlFilter = '<input type="text" name="toolbarFilters[' . $col->getUniqueId() . ']" style="width: 80%" value="' . $col->getFilterActiveValue() . '" class="form-control daterange">';
+                        } else {
+                            $htmlFilter = '<input type="text" name="toolbarFilters[' . $col->getUniqueId() . ']" style="width: 80%" value="' . $col->getFilterActiveValue() . '" class="form-control">';
+                        }
+                    } ?>
+                    <td class="<?= implode(',', $classes); ?>"><?= $htmlFilter; ?></td>
+                <?php endforeach; ?>
+                </tr>
+            <?php endif; ?>
+        </thead><!-- END table header -->
+
+        <!-- Start table BODY -->
+        <tbody>
+            <?php foreach($this->data as $row): ?>
+                <?= $this->twbsDatagridRow($row, $this->columns, $this->rowClickAction, $this->rowStyles, $hasMassActions); ?>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+<?= $this->partial('cms-twbs/datagrid/footer'); ?>
+</form>

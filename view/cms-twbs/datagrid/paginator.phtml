@@ -1,0 +1,85 @@
+<?php
+/**
+ * CoolMS2 Twitter Bootstrap Module (http://www.coolms.com/)
+ *
+ * @link      http://github.com/coolms/twbs for the canonical source repository
+ * @copyright Copyright (c) 2006-2015 Altgraphic, ALC (http://www.altgraphic.com)
+ * @license   http://www.coolms.com/license/new-bsd New BSD License
+ * @author    Dmitry Popov <d.popov@altgraphic.com>
+ */
+
+namespace CmsTwbs;
+
+$paginatorOnclick  = 'document.forms[\'form_' . $this->gridId . '\'].elements[\'' .
+    $this->parameterNames['currentPage'] . '\'].value = %s;';
+$paginatorOnclick .= 'document.forms[\'form_' . $this->gridId . '\'].submit(); return false;';
+
+?>
+<div class="pagination" style="margin: 0px;">    
+<?php if (count($this->pagesInRange) > 1): ?>
+    <ul class="pagination" style="margin: 0px;">
+    <!-- to first page -->
+    <?php if ($this->current > 1): ?>
+        <li><a href="<?= $this->url(null, [], [
+            'query' => array_merge($this->activeParameters, [
+                $this->parameterNames['currentPage'] => 1
+            ])
+        ], true); ?>" onclick="<?= sprintf($paginatorOnclick, 1); ?>">&laquo;</a></li>
+    <?php else: ?>
+        <li class="disabled"><a href="#">&laquo;</a></li>
+    <?php endif;?>
+
+    <!-- one page left -->
+    <?php if ($this->current > 1): ?>
+        <li><a href="<?= $this->url(null, [], [
+            'query' => array_merge($this->activeParameters, [
+                $this->parameterNames['currentPage'] => $this->current - 1
+            ])
+        ], true); ?>"  onclick="<?= sprintf($paginatorOnclick, $this->current - 1); ?>">&lt;</a></li>
+    <?php else: ?>
+        <li class="disabled"><a href="#">&lt;</a></li>
+    <?php endif;?>
+
+    <!-- general pages in range -->
+    <?php foreach($this->pagesInRange as $page):
+        $add = '';
+        if ($this->current === $page) {
+            $add = 'class="active"';
+        }
+
+        if ($this->current != $page) {
+            $url = $this->url($this->matchedRouteName, [], [
+                'query' => array_merge($this->activeParameters, [
+                    $this->parameterNames['currentPage'] => $page
+                ])
+            ], true);
+        } else {
+            $url = '#';
+        } ?>
+        <li <?= $add; ?>><a href="<?= $url; ?>" onclick="<?= sprintf($paginatorOnclick, $page); ?>"><?= $page; ?></a></li>
+    <?php endforeach; ?>
+
+    <!-- one page right -->
+    <?php if($this->current < $this->pageCount): ?>
+        <li><a href="<?= $this->url($this->matchedRouteName, [], [
+            'query' => array_merge($this->activeParameters, [
+                $this->parameterNames['currentPage'] => $this->current + 1
+            ])
+        ], true); ?>" onclick="<?= sprintf($paginatorOnclick, $this->current + 1); ?>">&gt;</a></li>
+    <?php else: ?>
+        <li class="disabled"><a href="#">&gt;</a></li>
+    <?php endif;?>
+
+    <!-- to last page -->
+    <?php if($this->current < $this->pageCount): ?>
+        <li><a href="<?= $this->url($this->matchedRouteName, [], [
+            'query' => array_merge($this->activeParameters, [
+                $this->parameterNames['currentPage'] => $this->pageCount
+            ])
+        ], true); ?>" onclick="<?= sprintf($paginatorOnclick, $this->pageCount);?>">&raquo;</a></li>
+    <?php else: ?>
+        <li class="disabled"><a href="#">&raquo;</a></li>
+    <?php endif;?>
+    </ul>
+<?php endif; ?>
+</div>
