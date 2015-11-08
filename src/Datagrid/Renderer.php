@@ -10,7 +10,8 @@
 
 namespace CmsTwbs\Renderer\BootstrapTable;
 
-use Zend\Http\PhpEnvironment\Request as HttpRequest,
+use RuntimeException,
+    Zend\Http\PhpEnvironment\Request as HttpRequest,
     CmsDatagrid\Column,
     CmsDatagrid\Datagrid,
     CmsDatagrid\Filter,
@@ -18,14 +19,6 @@ use Zend\Http\PhpEnvironment\Request as HttpRequest,
 
 class Renderer extends AbstractRenderer
 {
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
-    {
-        return 'twbsTable';
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -44,13 +37,14 @@ class Renderer extends AbstractRenderer
 
     /**
      * @return HttpRequest
-     * @throws \Exception
+     * @throws RuntimeException
      */
     public function getRequest()
     {
         $request = parent::getRequest();
+
         if (!$request instanceof HttpRequest) {
-            throw new \Exception(sprintf(
+            throw new RuntimeException(sprintf(
                 'Request must be an instance of %s for HTML rendering',
                 HttpRequest::class
             ));

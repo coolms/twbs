@@ -1,0 +1,33 @@
+<?php 
+/**
+ * CoolMS2 Twitter Bootstrap Module (http://www.coolms.com/)
+ *
+ * @link      http://github.com/coolms/twbs for the canonical source repository
+ * @copyright Copyright (c) 2006-2015 Altgraphic, ALC (http://www.altgraphic.com)
+ * @license   http://www.coolms.com/license/new-bsd New BSD License
+ * @author    Dmitry Popov <d.popov@altgraphic.com>
+ */
+
+namespace CmsTwbs;
+
+?>
+<div class="row row-fluid" style="margin-bottom: 5px;">
+
+    <!-- Actions (add, ...) -->
+    <div class="span2 col-md-2">
+        Here your can add global actions like "Add".<br />
+    </div>
+
+    <!-- Anything else (filter, ...) -->
+    <div class="span6 col-md-6">
+        You could add here custom filters or other interesting things<br />
+        Change the toolbar with <code>$grid-&gt;setToolbarTemplate('my-path/awesome-list/grid-toolbar');</code>
+    </div>
+
+    <!-- Export buttons -->
+    <div class="span4 col-md-4 text-right">
+        Here are the enabled export types are shown<br />
+        Template: <code>zfc-datagrid/toolbar/export</code>
+        <?= $this->partial('cms-twbs/datagrid/export'); ?>
+    </div>
+</div>

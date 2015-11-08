@@ -70,9 +70,9 @@ return [
         ],
     ],
     'cmsdatagrid' => [
-        'httpRenderer' => 'twbsTable',
+        'httpRenderer' => 'CmsTwbs\Datagrid\Renderer',
         'renderers' => [
-            'twbsTable' => [
+            'CmsTwbs\Datagrid\Renderer' => [
                 'daterange' => [
                     'enabled' => false,
                 ],
@@ -193,6 +193,9 @@ return [
         'factories' => [
             'CmsTwbs\Filter\LessPhpFilter' => 'CmsTwbs\Factory\LessPhpFilterFactory',
             'CmsTwbs\Options\ModuleOptions' => 'CmsTwbs\Factory\ModuleOptionsFactory',
+        ],
+        'invokables' => [
+            'CmsTwbs\Datagrid\Renderer' => 'CmsTwbs\Datagrid\Renderer',
         ],
     ],
     'view_helper_config' => [
