@@ -10,6 +10,9 @@
 
 namespace CmsTwbs;
 
+use Locale,
+    Zend\Json\Expr;
+
 return [
     'asset_manager' => [
         'resolver_configs' => [
@@ -107,6 +110,29 @@ return [
                 'namespace' => __NAMESPACE__,
                 'defaults' => [
                     'size' => 10,
+                ],
+            ],
+            'daterangepicker' => [
+                'files' => [
+                    'daterangepicker/moment.min.js',
+                    'daterangepicker/daterangepicker.js',
+                ],
+                'cssFiles' => 'daterangepicker/daterangepicker.css',
+                'name' => 'daterangepicker',
+                'element' => '.daterangepicker',
+                'onload' => false,
+                'namespace' => __NAMESPACE__,
+                'defaults' => [
+                    'ranges' => [
+                        'Today'        => new Expr("[moment().startOf('day'), moment().endOf('day')]"),
+                        'Yesterday'    => new Expr("[moment().subtract('days', 1), moment().subtract('days', 1)]"),
+                        'Last 7 Days'  => new Expr("[moment().subtract('days', 6), moment()]"),
+                        'Last 30 Days' => new Expr("[moment().subtract('days', 29), moment()]"),
+                        'This Month'   => new Expr("[moment().startOf('month'), moment().endOf('month')]"),
+                        'Last Month'   => new Expr("[moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]"),
+                    ],
+                    'locale' => Locale::getDefault(),
+                    'format' => 'DD/MM/YY HH:mm:ss',
                 ],
             ],
         ],
