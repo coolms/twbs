@@ -8,7 +8,7 @@
  * @author    Dmitry Popov <d.popov@altgraphic.com>
  */
 
-namespace CmsTwbs\Renderer\BootstrapTable;
+namespace CmsTwbs\Datagrid;
 
 use RuntimeException,
     Zend\Http\PhpEnvironment\Request as HttpRequest,

@@ -43,12 +43,12 @@ $paginator = $this->paginator;
     <!-- Info -->
     <div class="span4 col-md-4 text-right">
         <?= sprintf(
-            $this->translate('Showing %d of %d item(s)'),
+            $this->translate('Showing %d of %d item(s)', __NAMESPACE__),
             $paginator->getCurrentItemCount(),
             $paginator->getTotalItemCount()
         ); ?><br />
         <?= sprintf(
-            $this->translate('Page %d of %d item(s)'),
+            $this->translate('Page %d of %d', __NAMESPACE__),
             $paginator->getCurrentPageNumber(),
             $paginator->count()
         ); ?>
