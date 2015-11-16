@@ -37,7 +37,7 @@ class FormPanel extends Panel
      *
      * @var string
      */
-    protected $defaultFieldsetHelper = 'form_collection';
+    protected $defaultFieldsetHelper = 'formCollection';
 
     /**
      * The view helper used to render form elements.
@@ -65,7 +65,7 @@ class FormPanel extends Panel
      *
      * @var string
      */
-    protected $defaultFormMessagesHelper = 'form_messages';
+    protected $defaultFormMessagesHelper = 'formMessages';
 
     /**
      * The view helper used to render form messages.
@@ -77,7 +77,7 @@ class FormPanel extends Panel
     /**
      * @var string
      */
-    protected $defaultLabelHelper = 'form_label';
+    protected $defaultLabelHelper = 'formLabel';
 
     /**
      * @var AbstractHelper
@@ -87,7 +87,7 @@ class FormPanel extends Panel
     /**
      * @var string
      */
-    protected $defaultRowHelper = 'form_row';
+    protected $defaultRowHelper = 'formRow';
 
     /**
      * @var AbstractHelper
