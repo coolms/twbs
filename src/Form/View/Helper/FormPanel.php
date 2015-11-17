@@ -17,6 +17,7 @@ use Zend\Form\Element,
     CmsCommon\View\Exception\InvalidArgumentException,
     CmsCommon\View\Exception\InvalidHelperException,
     CmsTwbs\View\Helper\Panel;
+use Zend\I18n\Translator\TranslatorAwareInterface;
 
 /**
  * View helper for rendering form panel
@@ -145,9 +146,8 @@ class FormPanel extends Panel
 
         $formOpenTag = $this->getFormHelper()->openTag($form);
 
-        if (null === $header && $form->getLabel()) {
-            $labelPlugin = $this->getLabelHelper();
-            $header = $labelPlugin($form);
+        if (null === $header) {
+            $header = $this->renderLabel($form);
         }
 
         $rowHelper = $this->getRowHelper();
@@ -268,6 +268,36 @@ class FormPanel extends Panel
         }
 
         return $this->labelHelper;
+    }
+
+    /**
+     * @param FormInterface $form
+     * @return void|string
+     */
+    protected function renderLabel(FormInterface $form)
+    {
+        if (!$form->getLabel()) {
+            return;
+        }
+
+        $helper = $this->getLabelHelper();
+
+        if ($helper instanceof TranslatorAwareInterface) {
+            $rollbackTextDomain = $helper->getTranslatorTextDomain();
+            if (($textDomain = $form->getOption('text_domain')) &&
+                $rollbackTextDomain === 'default'
+            ) {
+                $helper->setTranslatorTextDomain($textDomain);
+            }
+        }
+
+        $markup = $helper($form);
+
+        if (isset($rollbackTextDomain)) {
+            $helper->setTranslatorTextDomain($rollbackTextDomain);
+        }
+
+        return $markup;
     }
 
     /**
