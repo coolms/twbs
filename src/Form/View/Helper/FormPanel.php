@@ -38,7 +38,7 @@ class FormPanel extends Panel
      *
      * @var string
      */
-    protected $defaultFieldsetHelper = 'formCollection';
+    protected $defaultFieldsetHelper = 'formRow';
 
     /**
      * The view helper used to render form elements.
@@ -151,14 +151,12 @@ class FormPanel extends Panel
         }
 
         $footer = $this->renderFooter($form);
-
         if (func_get_arg(3) !== null) {
             $footer = func_get_arg(3);
         }
 
         $formMessagesHelper = $this->getFormMessagesHelper();
-        $fieldsetHelper = $this->getFieldsetHelper();
-        $content = $formMessagesHelper($form) . $fieldsetHelper($form, false);
+        $content = $formMessagesHelper($form) . $this->renderContent($form);
 
         return $formOpenTag
             . parent::render($content, $attribs, $header, $footer)
@@ -283,6 +281,34 @@ class FormPanel extends Panel
         }
 
         $markup = $helper($form);
+
+        if (isset($rollbackTextDomain)) {
+            $helper->setTranslatorTextDomain($rollbackTextDomain);
+        }
+
+        return $markup;
+    }
+
+    /**
+     * @param FormInterface $form
+     * @return string
+     */
+    protected function renderContent(FormInterface $form)
+    {
+        $markup = '';
+
+        $helper = $this->getFieldsetHelper();
+
+        if ($helper instanceof TranslatorAwareInterface) {
+            $rollbackTextDomain = $helper->getTranslatorTextDomain();
+            if (($textDomain = $form->getOption('text_domain')) &&
+                $rollbackTextDomain === 'default'
+            ) {
+                $helper->setTranslatorTextDomain($textDomain);
+            }
+        }
+
+        $markup = $helper($form, false);
 
         if (isset($rollbackTextDomain)) {
             $helper->setTranslatorTextDomain($rollbackTextDomain);
