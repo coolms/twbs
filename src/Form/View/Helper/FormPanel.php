@@ -12,12 +12,12 @@ namespace CmsTwbs\Form\View\Helper;
 
 use Zend\Form\Element,
     Zend\Form\FormInterface,
+    Zend\I18n\Translator\TranslatorAwareInterface,
     Zend\Stdlib\ArrayUtils,
     Zend\View\Helper\AbstractHelper,
     CmsCommon\View\Exception\InvalidArgumentException,
     CmsCommon\View\Exception\InvalidHelperException,
     CmsTwbs\View\Helper\Panel;
-use Zend\I18n\Translator\TranslatorAwareInterface;
 
 /**
  * View helper for rendering form panel
@@ -147,19 +147,10 @@ class FormPanel extends Panel
         $formOpenTag = $this->getFormHelper()->openTag($form);
 
         if (null === $header) {
-            $header = $this->renderLabel($form);
+            $header = $this->renderHeader($form);
         }
 
-        $rowHelper = $this->getRowHelper();
-        foreach (ArrayUtils::iteratorToArray($form) as $elementOrFieldset) {
-            foreach ($this->defaultFooterElementsByType as $type) {
-                if ($elementOrFieldset instanceof $type) {
-                    $footer .= $rowHelper($elementOrFieldset);
-                    $elementOrFieldset->setOption('__rendered__', true);
-                    break;
-                }
-            }
-        }
+        $footer = $this->renderFooter($form);
 
         if (func_get_arg(3) !== null) {
             $footer = func_get_arg(3);
@@ -272,12 +263,12 @@ class FormPanel extends Panel
 
     /**
      * @param FormInterface $form
-     * @return void|string
+     * @return string
      */
-    protected function renderLabel(FormInterface $form)
+    protected function renderHeader(FormInterface $form)
     {
         if (!$form->getLabel()) {
-            return;
+            return '';
         }
 
         $helper = $this->getLabelHelper();
@@ -292,6 +283,42 @@ class FormPanel extends Panel
         }
 
         $markup = $helper($form);
+
+        if (isset($rollbackTextDomain)) {
+            $helper->setTranslatorTextDomain($rollbackTextDomain);
+        }
+
+        return $markup;
+    }
+
+    /**
+     * @param FormInterface $form
+     * @return string
+     */
+    protected function renderFooter(FormInterface $form)
+    {
+        $markup = '';
+
+        $helper = $this->getRowHelper();
+
+        if ($helper instanceof TranslatorAwareInterface) {
+            $rollbackTextDomain = $helper->getTranslatorTextDomain();
+            if (($textDomain = $form->getOption('text_domain')) &&
+                $rollbackTextDomain === 'default'
+            ) {
+                $helper->setTranslatorTextDomain($textDomain);
+            }
+        }
+
+        foreach (ArrayUtils::iteratorToArray($form) as $elementOrFieldset) {
+            foreach ($this->defaultFooterElementsByType as $type) {
+                if ($elementOrFieldset instanceof $type) {
+                    $markup .= $helper($elementOrFieldset);
+                    $elementOrFieldset->setOption('__rendered__', true);
+                    break;
+                }
+            }
+        }
 
         if (isset($rollbackTextDomain)) {
             $helper->setTranslatorTextDomain($rollbackTextDomain);
