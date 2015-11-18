@@ -18,6 +18,7 @@ use Zend\Form\Element,
     CmsCommon\View\Exception\InvalidArgumentException,
     CmsCommon\View\Exception\InvalidHelperException,
     CmsTwbs\View\Helper\Panel;
+use CmsCommon\Form\View\Helper\FormRow;
 
 /**
  * View helper for rendering form panel
@@ -308,7 +309,19 @@ class FormPanel extends Panel
             }
         }
 
+        if ($renderMode = $form->getOption('render_mode')) {
+            $rowHelper = $this->getRowHelper();
+            if ($rowHelper instanceof FormRow) {
+                $rollbackRenderMode = $rowHelper->getRenderMode();
+                $rowHelper->setRenderMode($renderMode);
+            }
+        }
+
         $markup = $helper($form, false);
+
+        if (isset($rollbackRenderMode)) {
+            $rowHelper->setRenderMode($rollbackRenderMode);
+        }
 
         if (isset($rollbackTextDomain)) {
             $helper->setTranslatorTextDomain($rollbackTextDomain);
