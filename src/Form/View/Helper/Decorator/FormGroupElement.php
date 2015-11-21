@@ -79,13 +79,4 @@ class FormGroupElement extends Element
 
         return $this->elementHelper;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function renderHelper(ElementInterface $element, FormInterface $form = null)
-    {
-        $elementHelper = $this->getElementHelper();
-        return $elementHelper($element);
-    }
 }
