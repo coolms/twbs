@@ -264,7 +264,7 @@ class FormPanel extends Panel
      * @param FormInterface $form
      * @return string
      */
-    protected function renderHeader(FormInterface $form)
+    private function renderHeader($form)
     {
         if (!$form->getLabel()) {
             return '';
@@ -294,7 +294,7 @@ class FormPanel extends Panel
      * @param FormInterface $form
      * @return string
      */
-    protected function renderContent(FormInterface $form)
+    private function renderContent($form)
     {
         $markup = '';
 
@@ -334,7 +334,7 @@ class FormPanel extends Panel
      * @param FormInterface $form
      * @return string
      */
-    protected function renderFooter(FormInterface $form)
+    private function renderFooter($form)
     {
         $markup = '';
 
