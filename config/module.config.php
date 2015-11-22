@@ -111,6 +111,11 @@ return [
                 'defaults' => [
                     'size' => 10,
                 ],
+                'script' => [
+                    '$("fieldset").on("addFieldset", function(event) {
+                        $(".selectpicker", $(this)).selectpicker("refresh");
+                    });'
+                ],
             ],
             'daterangepicker' => [
                 'files' => [
