@@ -353,7 +353,7 @@ class FormPanel extends Panel
             foreach ($this->defaultFooterElementsByType as $type) {
                 if ($elementOrFieldset instanceof $type) {
                     $markup .= $helper($elementOrFieldset);
-                    $elementOrFieldset->setOption('__rendered__', true);
+                    $elementOrFieldset->setOption(FormRow::RENDERED, true);
                     break;
                 }
             }
