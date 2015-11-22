@@ -30,7 +30,7 @@ if ($this->rowClickAction !== null) {
 
 ?>
 <?php if ($this->daterangeEnabled): ?>
-    <?php $this->inlineScript()->captureStart();?>
+    <?php $this->inlineScript()->captureStart(); ?>
     $(function(){
         <?php //If daterange bootstrapTable filter is enable show it ?>
         $('input.daterange').daterangepicker(
