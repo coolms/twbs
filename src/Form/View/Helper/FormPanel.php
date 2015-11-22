@@ -274,8 +274,8 @@ class FormPanel extends Panel
 
         if ($helper instanceof TranslatorAwareInterface) {
             $rollbackTextDomain = $helper->getTranslatorTextDomain();
-            if (($textDomain = $form->getOption('text_domain')) &&
-                $rollbackTextDomain === 'default'
+            if (($textDomain = $form->getOption(FormRow::TEXT_DOMAIN)) &&
+                $rollbackTextDomain === FormRow::DEFAULT_TEXT_DOMAIN
             ) {
                 $helper->setTranslatorTextDomain($textDomain);
             }
@@ -302,8 +302,8 @@ class FormPanel extends Panel
 
         if ($helper instanceof TranslatorAwareInterface) {
             $rollbackTextDomain = $helper->getTranslatorTextDomain();
-            if (($textDomain = $form->getOption('text_domain')) &&
-                $rollbackTextDomain === 'default'
+            if (($textDomain = $form->getOption(FormRow::TEXT_DOMAIN)) &&
+                $rollbackTextDomain === FormRow::DEFAULT_TEXT_DOMAIN
             ) {
                 $helper->setTranslatorTextDomain($textDomain);
             }
@@ -342,8 +342,8 @@ class FormPanel extends Panel
 
         if ($helper instanceof TranslatorAwareInterface) {
             $rollbackTextDomain = $helper->getTranslatorTextDomain();
-            if (($textDomain = $form->getOption('text_domain')) &&
-                $rollbackTextDomain === 'default'
+            if (($textDomain = $form->getOption(FormRow::TEXT_DOMAIN)) &&
+                $rollbackTextDomain === FormRow::DEFAULT_TEXT_DOMAIN
             ) {
                 $helper->setTranslatorTextDomain($textDomain);
             }
