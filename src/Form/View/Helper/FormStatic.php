@@ -10,17 +10,17 @@
 
 namespace CmsTwbs\Form\View\Helper;
 
-use CmsCommon\Form\View\Helper\FormStatic as BaseFormStatic,
+use CmsCommon\Form\View\Helper\FormStatic as FormStaticHelper,
     CmsCommon\View\Helper\Decorator\DecoratorProviderInterface;
 
-class FormStatic extends BaseFormStatic implements DecoratorProviderInterface
+class FormStatic extends FormStaticHelper implements DecoratorProviderInterface
 {
     /**
      * @var array
      */
     protected $decoratorSpecification = [
         'element'   => [
-            'type' => 'formControlStatic',
+            'type'       => 'formControlStatic',
             'decorators' => [
                 'col' => ['class' => 'col-sm-8'],
             ],
