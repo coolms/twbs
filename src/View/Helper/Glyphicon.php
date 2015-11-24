@@ -17,7 +17,7 @@ class Glyphicon extends HtmlContainer
     /**
      * @var string
      */
-    protected $tagName = 'span';
+    protected $tagName = 'i';
 
     /**
      * @var string
