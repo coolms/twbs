@@ -43,15 +43,14 @@ if ($this->rowClickAction !== null) {
 <?php endif; ?>
 
 <form name="form_<?= $this->gridId; ?>" method="<?= $this->parameterNames['method']; ?>" action="<?= $this->url(null, [], [], true); ?>">
-    <input type="submit" style="width:0px; height:0px; margin:0; padding:0; border:0;" name="hiddenSubmit">
     <input type="hidden" name="<?= $this->parameterNames['sortColumns']; ?>" value="<?= $this->activeParameters[$this->parameterNames['sortColumns']]; ?>">
     <input type="hidden" name="<?= $this->parameterNames['sortDirections']; ?>" value="<?= $this->activeParameters[$this->parameterNames['sortDirections']]; ?>">
 <?php foreach($this->parameters as $name => $value): ?>
     <input type="hidden" name="<?= $name; ?>" value="<?= $value; ?>">
 <?php endforeach; ?>
 
-    <?= $this->toolbar; ?>
-    <?= $this->partial($this->templateToolbar); ?>
+    <?php $this->toolbar; ?>
+    <?php $this->partial($this->templateToolbar); ?>
 
 <div class="table-responsive">
     <table class="<?= implode(' ', $classes); ?>">
@@ -167,4 +166,5 @@ if ($this->rowClickAction !== null) {
     </table>
 </div>
 <?= $this->partial('cms-twbs/datagrid/footer'); ?>
+<input type="submit" style="width:0px; height:0px; margin:0; padding:0; border:0;" name="hiddenSubmit">
 </form>
