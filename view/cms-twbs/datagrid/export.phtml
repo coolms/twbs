@@ -8,17 +8,17 @@
  * @author    Dmitry Popov <d.popov@altgraphic.com>
  */
 
-namespace CmsTwbs;
+namespace CmsDatagrid;
 
 $url = $this->overwriteUrl != '' ? $this->overwriteUrl : $this->url(null, [], [], true);
 
 $parametersAdd = '';
 foreach ($this->parameters as $name => $value) {
-    $parametersAdd .= '&' . $name . '=' . $value;
+    $parametersAdd .= "&$name=$value";
 }
 
 foreach ($this->exportRenderers as $type => $name):
-    $urlExport = $url . '?' . $this->generalParameterNames['rendererType'] . '=' . $type . $parametersAdd;
+    $urlExport = "$url?{$this->generalParameterNames['rendererType']}={$type}{$parametersAdd}";
 ?>
     <a class="btn btn-default" href="<?= $urlExport; ?>">
         <?= $name; ?>
