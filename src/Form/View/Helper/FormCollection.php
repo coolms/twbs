@@ -48,7 +48,7 @@ class FormCollection extends BaseFormCollection
         $btnHelper  = $this->getView()->plugin('btn');
         $iconHelper = $this->getView()->plugin('icon');
 
-        if ($element instanceof Collection && $element->allowAdd()) {
+        if ($element instanceof Collection && $element->allowAdd() && $element->shouldCreateTemplate()) {
             return $btnHelper($iconHelper('plus'), [
                 'class'   => 'btn-success pull-right clearfix',
                 'onclick' => "return CmsCommon.Form.Collection.addFieldset(this, 'prepend');",
