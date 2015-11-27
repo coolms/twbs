@@ -47,6 +47,10 @@ class ControlLabel extends ElementLabel implements OrderedDecoratorInterface, Pl
             $srOnly = $this->getSrOnly();
             if (null === $srOnly) {
                 if ($element instanceof LabelAwareInterface) {
+                    if (!$element->getLabel()) {
+                        return '';
+                    }
+
                     $srOnly = $element->getLabelOption('sr_only');
                 }
 
