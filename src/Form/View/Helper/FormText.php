@@ -10,10 +10,10 @@
 
 namespace CmsTwbs\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormText as ZendFormText,
+use Zend\Form\View\Helper\FormText as FormTextHelper,
     CmsCommon\View\Helper\Decorator\DecoratorProviderInterface;
 
-class FormText extends ZendFormText implements DecoratorProviderInterface
+class FormText extends FormTextHelper implements DecoratorProviderInterface
 {
     /**
      * @var array

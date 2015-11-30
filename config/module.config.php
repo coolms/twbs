@@ -93,7 +93,23 @@ return [
     ],
     'cmsjquery' => [
         'plugins' => [
-            'twbs' => ['onload' => true],
+            'placeholder' => [
+                'script' => [
+                    <<<EOJ
+$("input, textarea").hover(function() {
+  if ($(this).val() != "") {
+    $(this).tooltip({
+      title: $(this).attr("placeholder"),
+      trigger: "focus"
+    });
+  }
+});
+EOJ
+                ],
+            ],
+            'twbs' => [
+                'onload' => true,
+            ],
         ],
     ],
     'cmstwbs' => [
@@ -109,9 +125,11 @@ return [
                     'size' => 10,
                 ],
                 'script' => [
-                    '$("fieldset").on("addFieldset", function(event) {
-                        $(".selectpicker", $(this)).selectpicker("refresh");
-                    });'
+                    <<<EOJ
+$("fieldset").on("addFieldset", function(event) {
+    $(".selectpicker", $(this)).selectpicker("refresh");
+});
+EOJ
                 ],
             ],
             'daterangepicker' => [

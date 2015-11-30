@@ -11,12 +11,12 @@
 namespace CmsTwbs\Form\View\Helper;
 
 use Zend\Form\FormInterface,
-    CmsCommon\Form\View\Helper\Form as CommonForm;
+    CmsCommon\Form\View\Helper\Form as FormHelper;
 
 /**
  * View helper for rendering Form objects
  */
-class Form extends CommonForm
+class Form extends FormHelper
 {
     /**
      * @var string default form class

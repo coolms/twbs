@@ -13,14 +13,14 @@ namespace CmsTwbs\Form\View\Helper;
 use Zend\Form\Element\Collection,
     Zend\Form\ElementInterface,
     Zend\Form\FieldsetInterface,
-    CmsCommon\Form\View\Helper\FormCollection as BaseFormCollection;
+    CmsCommon\Form\View\Helper\FormCollection as FormCollectionHelper;
 
 /**
  * Helper for rendering a collection
  *
  * @author Dmitry Popov <d.popov@altgraphic.com>
  */
-class FormCollection extends BaseFormCollection
+class FormCollection extends FormCollectionHelper
 {
     /**
      * This is the default label-wrapper
