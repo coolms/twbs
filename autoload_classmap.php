@@ -53,6 +53,8 @@ return array(
     'CmsTwbs\Options\ModuleOptions'                          => __DIR__ . '/src/Options/ModuleOptions.php',
     'CmsTwbs\Options\ModuleOptionsInterface'                 => __DIR__ . '/src/Options/ModuleOptionsInterface.php',
     'CmsTwbs\View\Helper\Col'                                => __DIR__ . '/src/View/Helper/Col.php',
+    'CmsTwbs\View\Helper\Dialog\AbstractDialog'              => __DIR__ . '/src/View/Helper/Dialog/AbstractDialog.php',
+    'CmsTwbs\View\Helper\Dialog\Confirm'                     => __DIR__ . '/src/View/Helper/Dialog/Confirm.php',
     'CmsTwbs\View\Helper\Fa'                                 => __DIR__ . '/src/View/Helper/Fa.php',
     'CmsTwbs\View\Helper\Glyphicon'                          => __DIR__ . '/src/View/Helper/Glyphicon.php',
     'CmsTwbs\View\Helper\Navigation\Menu'                    => __DIR__ . '/src/View/Helper/Navigation/Menu.php',
