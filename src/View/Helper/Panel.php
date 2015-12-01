@@ -35,7 +35,7 @@ class Panel extends HtmlContainer
      */
     protected $headingAttributes    = ['class' => 'panel-heading'];
     protected $bodyAttributes       = ['class' => 'panel-body'];
-    protected $footerAttributes     = ['class' => 'panel-footer clearfix'];
+    protected $footerAttributes     = ['class' => 'panel-footer text-right clearfix'];
     /**@-*/
 
     /**

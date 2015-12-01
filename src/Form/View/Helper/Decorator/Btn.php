@@ -55,7 +55,9 @@ class Btn extends Element
         if ($renderAsBlock) {
             if (empty($attribs['class'])) {
                 $attribs['class'] = 'btn-block';
-            } elseif (strpos($attribs['class'], 'btn-block') === false) {
+            } elseif (strpos($attribs['class'], 'btn-block') === false &&
+                strpos($attribs['class'], 'btn-inline') === false
+            ) {
                 $attribs['class'] = $attribs['class'] . ' btn-block';
             }
         }

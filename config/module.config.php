@@ -261,6 +261,7 @@ EOJ
             'btnSubmit' => 'CmsTwbs\Form\View\Helper\Decorator\BtnSubmit',
             'checkbox' => 'CmsTwbs\Form\View\Helper\Decorator\Checkbox',
             'col' => 'CmsTwbs\View\Helper\Col',
+            'confirmDialog' => 'CmsTwbs\View\Helper\Dialog\Confirm',
             'controlLabel' => 'CmsTwbs\Form\View\Helper\Decorator\ControlLabel',
             'fa' => 'CmsTwbs\View\Helper\Fa',
             'form' => 'CmsTwbs\Form\View\Helper\Form',
